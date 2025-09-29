@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="configureMachActionsBTF">
+    <default-activity>configureMachAct</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <managed-bean id="__6">
+      <managed-bean-name>MachineActionBean</managed-bean-name>
+      <managed-bean-class>com.susanto.beans.MachineActionBean</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="configureMachAct">
+      <page>/fragments/configureMachAct.jsff</page>
+    </view>
+    <task-flow-return id="taskFlowReturn1">
+      <outcome>
+        <name>back</name>
+      </outcome>
+    </task-flow-return>
+    <task-flow-return id="taskFlowReturn2">
+      <outcome>
+        <name>gotoConMachAct</name>
+      </outcome>
+    </task-flow-return>
+    <task-flow-return id="taskFlowReturn3">
+      <outcome>
+        <name>configureMachines</name>
+      </outcome>
+    </task-flow-return>
+    <task-flow-return id="taskFlowReturn4">
+      <outcome>
+        <name>gotoUserBTF</name>
+      </outcome>
+    </task-flow-return>
+    <control-flow-rule id="__1">
+      <from-activity-id>configureMachAct</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__3">
+        <from-outcome>gotoConMachAct</from-outcome>
+        <to-activity-id>taskFlowReturn2</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__4">
+        <from-outcome>configureMachines</from-outcome>
+        <to-activity-id>taskFlowReturn3</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__5">
+        <from-outcome>gotoUserBTF</from-outcome>
+        <to-activity-id>taskFlowReturn4</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

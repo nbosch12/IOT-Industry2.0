@@ -1,0 +1,1337 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich" version="2.1" xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:dvt="http://xmlns.oracle.com/dss/adf/faces">
+    <c:set var="viewcontrollerBundle" value="#{adfBundle['view.viewcontrollerBundle']}"/>
+    <af:panelStretchLayout id="psl1" dimensionsFrom="parent">
+        <f:facet name="center">
+            <af:panelGridLayout id="pgl1" inlineStyle="background-color:InactiveBorder;" dimensionsFrom="parent">
+                <af:gridRow marginTop="5px" height="60px" id="gr1">
+                    <af:gridCell marginStart="5px" width="210px" id="gc1">
+                        <af:image source="#{resource['images:bosch_logo.png']}" shortDesc="boschLogo"
+                                  inlineStyle="height:48px;width:160px;" id="i1"/>
+                    </af:gridCell>
+                    <af:gridCell marginStart="5px" width="100%" id="gc2" halign="center" valign="middle">
+                        <!--<af:image source="#{resource['images:admin.png']}" shortDesc="userIcon" id="i2"
+                                  inlineStyle="width:60px" rendered="#{sessionScope.uname=='Susanto'}"/>-->
+                        <!--<af:image shortDesc="user" id="i6" inlineStyle="width:60px"
+                                  rendered="#{sessionScope.uname=='Nilesh'}"
+                                  source="#{resource['images:userIcn.png']}"/>-->
+                    </af:gridCell>
+                    <af:gridCell marginStart="5px" width="380px" marginEnd="5px" id="gc4" halign="end" valign="middle">
+                        <af:panelGroupLayout id="pgl2" layout="horizontal">
+                            <af:menuBar id="mb1">
+                                <af:commandMenuItem text="Configure Machines" id="cmi1" inlineStyle="font-size:small;"
+                                                    action="configureMachines"
+                                                    rendered="#{sessionScope.uname=='Susanto'}"/>
+                                <af:image source="#{resource['images:verticalLine.png']}" shortDesc="verticalLine"
+                                          id="i5" inlineStyle="height:12px;"
+                                          rendered="#{sessionScope.uname=='Susanto'}"/>
+                                <af:commandMenuItem text="Configure Machine Actions" id="cmi2"
+                                                    inlineStyle="font-size:small;"
+                                                    rendered="#{sessionScope.uname=='Susanto'}"
+                                                    action="gotoConMachAct"/>
+                                <af:image source="#{resource['images:verticalLine.png']}" shortDesc="verticalLine"
+                                          id="i4" inlineStyle="height:12px;"
+                                          rendered="#{sessionScope.uname=='Susanto'}"/>
+                            </af:menuBar>
+                            <af:outputText value="Welcome :" id="ot1" inlineStyle="font-size:small;"/>
+                            <af:image source="#{resource['images:userLogin.png']}" shortDesc="userLogin" id="i3"/>
+                            <af:activeOutputText id="aot1" inlineStyle="font-size:small;"
+                                                 value="#{sessionScope.uname}"/>
+                            <af:spacer width="13" height="10" id="s4"/>
+                            <af:link text="English" id="l2" inlineStyle="font-size:small;"/>
+                            <af:spacer width="13" height="10" id="s5"/>
+                            <af:link text="Help" id="l3" inlineStyle="font-size:small;"/>
+                            <af:spacer width="13" height="10" id="s6"/>
+                            <af:link text="Logout" id="l4" inlineStyle="font-size:small;" action="back"/>
+                            <af:spacer width="13" height="10" id="s7"/>
+                        </af:panelGroupLayout>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="100%" marginBottom="5px" id="gr2">
+                    <af:gridCell marginStart="5px" marginEnd="5px" width="100%" id="gc6" columnSpan="3" halign="stretch"
+                                 valign="stretch">
+                        <af:decorativeBox id="db3" theme="dark" dimensionsFrom="parent" >
+                            <f:facet name="center">
+                                <af:decorativeBox id="db1" theme="default"
+                                                  inlineStyle="margin-bottom:4px; margin-left:4px; margin-right:4px; margin-top:4px;">
+                                    <f:facet name="center">
+                                        <af:panelStretchLayout id="psl2" startWidth="49px" dimensionsFrom="parent"
+                                                               inlineStyle="background-color:Window;">
+                                            <f:facet name="center">
+                                                <af:panelGroupLayout id="pgl6" layout="vertical">
+                                                    <af:panelBorderLayout id="pbl1" inlineStyle="height:264px;">
+                                                        <f:facet name="right">
+                                                            <af:panelGroupLayout id="pgl7" layout="vertical"
+                                                                                 halign="center">
+                                                                <af:outputText value="#{bindings.Url.inputValue}"
+                                                                               shortDesc="#{bindings.Url.hints.tooltip}"
+                                                                               id="ot46" visible="false"/>
+                                                                <af:spacer width="10" height="10" id="s1"/>
+                                                                <af:panelGroupLayout id="pgl12" layout="horizontal"
+                                                                                     halign="center">
+                                                                    <af:panelGroupLayout id="pgl10"
+                                                                                         inlineStyle="width:1150px;"
+                                                                                         valign="middle"
+                                                                                         layout="horizontal"
+                                                                                         binding="#{pageFlowScope.UserBean.buttonContainerBinding}">
+                                                                        <af:inputText label="Enter RFID:" id="it1"
+                                                                                      showRequired="true"
+                                                                                      contentStyle="width:70px"
+                                                                                      binding="#{pageFlowScope.UserBean.refIdBinding1}"/>
+                                                                        <!--<af:inputListOfValues id="materialIdId"
+                                                                              popupTitle="Search and Select: #{bindings.MaterialId.hints.label}"
+                                                                              value="#{bindings.MaterialId.inputValue}"
+                                                                              label="#{bindings.MaterialId.hints.label}"
+                                                                              model="#{bindings.MaterialId.listOfValuesModel}"
+                                                                              required="#{bindings.MaterialId.hints.mandatory}"
+                                                                              columns="#{bindings.MaterialId.hints.displayWidth}"
+                                                                              shortDesc="#{bindings.MaterialId.hints.tooltip}"
+                                                                              showRequired="true" contentStyle="width:70px"
+                                                                      binding="#{pageFlowScope.UserBean.refIdBinding}">
+                                                            <f:validator binding="#{bindings.MaterialId.validator}"/>
+                                                            <af:autoSuggestBehavior suggestedItems="#{bindings.MaterialId.suggestedItems}"/>
+                                                        </af:inputListOfValues>-->
+                                                                        <af:inputText value="#{bindings.MaterialId.inputValue}"
+                                                                                      label="#{viewcontrollerBundle.ENTER_MATERIAL_NAME}"
+                                                                                      required="#{bindings.MaterialId.hints.mandatory}"
+                                                                                      columns="#{bindings.MaterialId.hints.displayWidth}"
+                                                                                      maximumLength="#{bindings.MaterialId.hints.precision}"
+                                                                                      shortDesc="#{bindings.MaterialId.hints.tooltip}"
+                                                                                      id="it17" showRequired="true"
+                                                                                      contentStyle="width:70px"
+                                                                                      binding="#{pageFlowScope.UserBean.refIdBinding}">
+                                                                            <f:validator binding="#{bindings.MaterialId.validator}"/>
+                                                                            <af:autoSuggestBehavior suggestedItems="#{bindings.MaterialId.suggestedItems}"/>
+                                                                        </af:inputText>
+                                                                        <af:spacer width="10" height="10" id="s112"/>
+                                                                        <af:inputText label="No. Of  Parts:" id="it2"
+                                                                                      contentStyle="width:40px"
+                                                                                      binding="#{pageFlowScope.UserBean.noOfP}"
+                                                                                      showRequired="false"
+                                                                                      requiredMessageDetail="Please provide Number Of Parts"
+                                                                                      required="false"/>
+                                                                        <af:spacer width="10" height="10" id="s8"/>
+                                                                        <af:button text="Load Workflow" id="b1"
+                                                                                   actionListener="#{pageFlowScope.UserBean.loadWorkflow}"
+                                                                                   binding="#{pageFlowScope.UserBean.loadWorkflowBinding}"/>
+                                                                        <af:spacer width="10" height="10" id="s132"/>
+                                                                        <af:button text="Clear Workflow" id="b3"
+                                                                                   binding="#{pageFlowScope.UserBean.clearWorkflowBinding}"
+                                                                                   actionListener="#{pageFlowScope.UserBean.clearWorkflow}"/>
+                                                                        <af:spacer width="10" height="10" id="s113"/>
+                                                                        <af:button text="Start Workflow" id="b2"
+                                                                                   disabled="true"
+                                                                                   actionListener="#{pageFlowScope.UserBean.startWorkflow}"
+                                                                                   binding="#{pageFlowScope.UserBean.startWorkflowBinding}"/>
+                                                                        <af:spacer width="10" height="10" id="s66"/>
+                                                                        <af:button text="Stop WorkFlow" id="b6"
+                                                                                   disabled="true"
+                                                                                   actionListener="#{pageFlowScope.UserBean.stopWF}"
+                                                                                   binding="#{pageFlowScope.UserBean.stopWFBinding}"/>
+                                                                        <af:spacer width="10" height="10" id="s65"/>
+                                                                        <af:button text="Arrange Machines" id="b4"
+                                                                                   disabled="true"
+                                                                                   actionListener="#{pageFlowScope.UserBean.machArranLstnr}"
+                                                                                   binding="#{pageFlowScope.UserBean.arrangeMachines}"/>
+                                                                        <af:spacer width="10" height="10" id="s131"/>
+                                                                        <af:button text="Arranged" id="b5"
+                                                                                   disabled="true"
+                                                                                   actionListener="#{pageFlowScope.UserBean.arrangeDoneLstnr}"
+                                                                                   binding="#{pageFlowScope.UserBean.machinesArranged}"/>
+                                                                    </af:panelGroupLayout>
+                                                                    <!--<af:spacer width="138" height="10" id="s8"/>-->
+                                                                </af:panelGroupLayout>
+                                                                <af:spacer width="10" height="10" id="s114"/>
+                                                                <af:panelGroupLayout id="pgl44">
+                                                                    <af:panelBox id="pb1"
+                                                                                 inlineStyle="background-color:#E3F0FF;height:530px"
+                                                                                 binding="#{pageFlowScope.UserBean.panelBox1}">
+                                                                        <af:panelFormLayout id="pfl1"
+                                                                                            inlineStyle="background-color:InfoBackground; height:480px;">
+                                                                            <af:spacer width="10" height="41" id="s72"/>
+                                                                            <af:panelGroupLayout id="pgl5"
+                                                                                                 layout="horizontal"
+                                                                                                 halign="center">
+                                                                                <af:panelGroupLayout id="pgl40">
+                                                                                    <af:panelGroupLayout id="pgl47"
+                                                                                                         inlineStyle="width:1228px; height:386px;"
+                                                                                                         layout="vertical"
+                                                                                                         halign="center">
+                                                                                        <af:panelGroupLayout id="pgl63"
+                                                                                                             layout="horizontal"
+                                                                                                             inlineStyle="font-size:x-large;">
+                                                                                            <af:outputText value="MES / ERP"
+                                                                                                           id="ot56"/>
+                                                                                        </af:panelGroupLayout>
+                                                                                        <af:separator id="s130"/>
+                                                                                        <af:panelGridLayout id="pgl17">
+                                                                                            <af:gridRow marginTop="0px"
+                                                                                                        height="auto"
+                                                                                                        id="gr6">
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc22"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid01}">
+                                                                                                    <af:spacer width="10"
+                                                                                                               height="141"
+                                                                                                               id="s32"/>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc3"
+                                                                                                             valign="top"
+                                                                                                             halign="start"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid11}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl4"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:spacer width="20"
+                                                                                                                   height="10"
+                                                                                                                   id="s2"/>
+                                                                                                        <af:panelGroupLayout id="pgl50"
+                                                                                                                             layout="vertical"
+                                                                                                                             halign="center">
+                                                                                                            <af:panelGroupLayout id="pgl52"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.inParams1}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="15"
+                                                                                                                           id="s42"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP11}"
+                                                                                                                               id="ot6"
+                                                                                                                               inlineStyle="width:50px; color:Green;"/>
+                                                                                                                <af:separator id="s77"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP12}"
+                                                                                                                               id="ot7"
+                                                                                                                               inlineStyle="color:Navy;"/>
+                                                                                                                <af:separator id="s18"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP13}"
+                                                                                                                               id="ot8"
+                                                                                                                               inlineStyle="color:Navy;"/>
+                                                                                                                <af:separator id="s19"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP14}"
+                                                                                                                               id="ot9"
+                                                                                                                               inlineStyle="color:Navy;"/>
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="15"
+                                                                                                                           id="s98"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl24"
+                                                                                                                                 layout="horizontal">
+                                                                                                                <af:image id="i13"
+                                                                                                                          inlineStyle="width:15px;height:30px"
+                                                                                                                          binding="#{pageFlowScope.UserBean.dnArrow1}"
+                                                                                                                          visible="false"
+                                                                                                                          source="#{resource['images:down.gif']}"/>
+                                                                                                                <af:image source="#{resource['images:top.gif']}"
+                                                                                                                          id="i9"
+                                                                                                                          inlineStyle="width:15px;height:30px"
+                                                                                                                          visible="false"
+                                                                                                                          binding="#{pageFlowScope.UserBean.upArrow1}"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl8"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.outParams1}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s97"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP11}"
+                                                                                                                               inlineStyle="color:#00BFFF;"
+                                                                                                                               id="ot26"/>
+                                                                                                                <af:separator id="s90"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP12}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot57"/>
+                                                                                                                <af:separator id="s40"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP13}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot28"/>
+                                                                                                                <af:separator id="s39"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP14}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot29"/>
+                                                                                                                <af:separator id="s37"/>
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s43"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl46"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.outTemp1}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s48"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outTemp11}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot30"/>
+                                                                                                                <af:separator id="s38"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outHumid11}"
+                                                                                                                               inlineStyle="color:Highlight;"
+                                                                                                                               id="ot31"/>
+                                                                                                                <af:separator id="s55"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outRandomP1}"
+                                                                                                                               inlineStyle="color:Teal;"
+                                                                                                                               id="ot48"/>
+                                                                                                                <af:separator id="s64"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP11}"
+                                                                                                                               inlineStyle="color:Purple;"
+                                                                                                                               id="ot50"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelGroupLayout>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc23"
+                                                                                                             halign="start"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid21}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl35"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:spacer width="20"
+                                                                                                                   height="10"
+                                                                                                                   id="s60"/>
+                                                                                                        <af:panelGroupLayout id="pgl13"
+                                                                                                                             halign="center"
+                                                                                                                             layout="vertical">
+                                                                                                            <af:panelGroupLayout id="pgl9"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.inParams2}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="15"
+                                                                                                                           id="s20"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP21}"
+                                                                                                                               id="ot10"
+                                                                                                                               inlineStyle="width:50px; color:Green;"/>
+                                                                                                                <af:separator id="s22"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP22}"
+                                                                                                                               id="ot11"
+                                                                                                                               inlineStyle="color:Navy;"/>
+                                                                                                                <af:separator id="s34"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP23}"
+                                                                                                                               id="ot12"
+                                                                                                                               inlineStyle="color:Navy;"/>
+                                                                                                                <af:separator id="s21"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP24}"
+                                                                                                                               id="ot13"
+                                                                                                                               inlineStyle="color:Navy;"/>
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="15"
+                                                                                                                           id="s96"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl25"
+                                                                                                                                 layout="horizontal">
+                                                                                                                <af:image id="i7"
+                                                                                                                          inlineStyle="width:15px;height:30px"
+                                                                                                                          binding="#{pageFlowScope.UserBean.dnArrow2}"
+                                                                                                                          visible="false"
+                                                                                                                          source="#{resource['images:down.gif']}"/>
+                                                                                                                <af:image source="#{resource['images:top.gif']}"
+                                                                                                                          id="i8"
+                                                                                                                          inlineStyle="width:15px;height:30px"
+                                                                                                                          visible="false"
+                                                                                                                          binding="#{pageFlowScope.UserBean.upArrow2}"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl51"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.outParams2}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s95"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP21}"
+                                                                                                                               inlineStyle="color:#00BFFF;"
+                                                                                                                               id="ot27"/>
+                                                                                                                <af:separator id="s91"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP22}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot47"/>
+                                                                                                                <af:separator id="s44"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP23}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot32"/>
+                                                                                                                <af:separator id="s45"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP24}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot33"/>
+                                                                                                                <af:separator id="s47"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl54"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.outTemp2}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s10"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outTemp21}"
+                                                                                                                               id="ot49"
+                                                                                                                               inlineStyle="color:Maroon;"/>
+                                                                                                                <af:separator id="s3"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outHumid21}"
+                                                                                                                               id="ot51"
+                                                                                                                               inlineStyle="color:Highlight;"/>
+                                                                                                                <af:separator id="s88"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outRandomP2}"
+                                                                                                                               id="ot52"
+                                                                                                                               inlineStyle="color:Teal;"/>
+                                                                                                                <af:separator id="s89"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP21}"
+                                                                                                                               id="ot55"
+                                                                                                                               inlineStyle="color:Purple;"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelGroupLayout>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc25"
+                                                                                                             halign="start"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid31}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl48"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:spacer width="20"
+                                                                                                                   height="10"
+                                                                                                                   id="s67"/>
+                                                                                                        <af:panelGroupLayout id="pgl14"
+                                                                                                                             halign="center"
+                                                                                                                             layout="vertical">
+                                                                                                            <af:panelGroupLayout id="pgl28"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.inParams3}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="15"
+                                                                                                                           id="s23"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP31}"
+                                                                                                                               id="ot14"
+                                                                                                                               inlineStyle="width:50px; color:Green;"/>
+                                                                                                                <af:separator id="s24"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP32}"
+                                                                                                                               inlineStyle="color:Navy;"
+                                                                                                                               id="ot15"/>
+                                                                                                                <af:separator id="s25"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP33}"
+                                                                                                                               inlineStyle="color:Navy;"
+                                                                                                                               id="ot16"/>
+                                                                                                                <af:separator id="s27"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP34}"
+                                                                                                                               inlineStyle="color:Navy;"
+                                                                                                                               id="ot17"/>
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="15"
+                                                                                                                           id="s93"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl15"
+                                                                                                                                 layout="horizontal">
+                                                                                                                <af:image id="i10"
+                                                                                                                          inlineStyle="width:15px;height:30px"
+                                                                                                                          binding="#{pageFlowScope.UserBean.dnArrow3}"
+                                                                                                                          visible="false"
+                                                                                                                          source="#{resource['images:down.gif']}"/>
+                                                                                                                <af:image source="#{resource['images:top.gif']}"
+                                                                                                                          id="i11"
+                                                                                                                          inlineStyle="width:15px;height:30px"
+                                                                                                                          visible="false"
+                                                                                                                          binding="#{pageFlowScope.UserBean.upArrow3}"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl26"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.outParams3}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s94"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP31}"
+                                                                                                                               inlineStyle="color:#00BFFF;"
+                                                                                                                               id="ot18"/>
+                                                                                                                <af:separator id="s28"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP32}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot19"/>
+                                                                                                                <af:separator id="s31"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP33}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot20"/>
+                                                                                                                <af:separator id="s33"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP34}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot21"/>
+                                                                                                                <af:separator id="s35"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl55"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.outTemp3}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s99"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outTemp31}"
+                                                                                                                               id="ot53"
+                                                                                                                               inlineStyle="color:Maroon;"/>
+                                                                                                                <af:separator id="s26"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outHumid31}"
+                                                                                                                               id="ot54"
+                                                                                                                               inlineStyle="color:Highlight;"/>
+                                                                                                                <af:separator id="s41"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outRandomP3}"
+                                                                                                                               id="ot66"
+                                                                                                                               inlineStyle="color:Teal;"/>
+                                                                                                                <af:separator id="s92"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP31}"
+                                                                                                                               id="ot67"
+                                                                                                                               inlineStyle="color:Purple;"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelGroupLayout>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc24"
+                                                                                                             halign="start"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid41}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl49"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:spacer width="20"
+                                                                                                                   height="10"
+                                                                                                                   id="s128"/>
+                                                                                                        <af:panelGroupLayout id="pgl16"
+                                                                                                                             halign="center"
+                                                                                                                             layout="vertical">
+                                                                                                            <af:panelGroupLayout id="pgl32"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.inParams4}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="15"
+                                                                                                                           id="s36"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP41}"
+                                                                                                                               id="ot22"
+                                                                                                                               inlineStyle="width:50px;color:Green;"/>
+                                                                                                                <af:separator id="s29"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP42}"
+                                                                                                                               inlineStyle="color:Navy;"
+                                                                                                                               id="ot23"/>
+                                                                                                                <af:separator id="s30"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP43}"
+                                                                                                                               inlineStyle="color:Navy;"
+                                                                                                                               id="ot24"/>
+                                                                                                                <af:separator id="s46"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP44}"
+                                                                                                                               inlineStyle="color:Navy;"
+                                                                                                                               id="ot25"/>
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="15"
+                                                                                                                           id="s104"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl23"
+                                                                                                                                 layout="horizontal">
+                                                                                                                <af:image id="i12"
+                                                                                                                          inlineStyle="width:15px;height:30px"
+                                                                                                                          binding="#{pageFlowScope.UserBean.dnArrow4}"
+                                                                                                                          visible="false"
+                                                                                                                          source="#{resource['images:down.gif']}"/>
+                                                                                                                <af:image source="#{resource['images:top.gif']}"
+                                                                                                                          id="i14"
+                                                                                                                          inlineStyle="width:15px;height:30px"
+                                                                                                                          visible="false"
+                                                                                                                          binding="#{pageFlowScope.UserBean.upArrow4}"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl29"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.outParams4}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s105"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP41}"
+                                                                                                                               inlineStyle="color:#00BFFF;"
+                                                                                                                               id="ot35"/>
+                                                                                                                <af:separator id="s49"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP42}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot34"/>
+                                                                                                                <af:separator id="s51"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP43}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot36"/>
+                                                                                                                <af:separator id="s50"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP44}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot37"/>
+                                                                                                                <af:separator id="s52"/>
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s11"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl56"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.outTemp4}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s100"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outTemp41}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot68"/>
+                                                                                                                <af:separator id="s103"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outHumid41}"
+                                                                                                                               inlineStyle="color:Highlight;"
+                                                                                                                               id="ot69"/>
+                                                                                                                <af:separator id="s102"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outRandomP4}"
+                                                                                                                               inlineStyle="color:Teal;"
+                                                                                                                               id="ot71"/>
+                                                                                                                <af:separator id="s101"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP41}"
+                                                                                                                               inlineStyle="color:Purple;"
+                                                                                                                               id="ot70"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelGroupLayout>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc5"
+                                                                                                             halign="start"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid51}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl62"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:spacer width="20"
+                                                                                                                   height="10"
+                                                                                                                   id="s129"/>
+                                                                                                        <af:panelGroupLayout id="pgl27"
+                                                                                                                             halign="center"
+                                                                                                                             layout="vertical">
+                                                                                                            <af:panelGroupLayout id="pgl30"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.inParams5}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="15"
+                                                                                                                           id="s53"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP51}"
+                                                                                                                               id="ot38"
+                                                                                                                               inlineStyle="width:50px;color:Green"/>
+                                                                                                                <af:separator id="s54"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP52}"
+                                                                                                                               inlineStyle="color:Navy;"
+                                                                                                                               id="ot40"/>
+                                                                                                                <af:separator id="s56"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP53}"
+                                                                                                                               inlineStyle="color:Navy;"
+                                                                                                                               id="ot41"/>
+                                                                                                                <af:separator id="s57"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP54}"
+                                                                                                                               inlineStyle="color:Navy;"
+                                                                                                                               id="ot39"/>
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="15"
+                                                                                                                           id="s110"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl31"
+                                                                                                                                 layout="horizontal">
+                                                                                                                <af:image id="i16"
+                                                                                                                          inlineStyle="width:15px;height:30px"
+                                                                                                                          binding="#{pageFlowScope.UserBean.dnArrow5}"
+                                                                                                                          visible="false"
+                                                                                                                          source="#{resource['images:down.gif']}"/>
+                                                                                                                <af:image source="#{resource['images:top.gif']}"
+                                                                                                                          id="i15"
+                                                                                                                          inlineStyle="width:15px;height:30px"
+                                                                                                                          visible="false"
+                                                                                                                          binding="#{pageFlowScope.UserBean.upArrow5}"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl33"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.outParams5}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s111"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP51}"
+                                                                                                                               inlineStyle="color:#00BFFF;"
+                                                                                                                               id="ot42"/>
+                                                                                                                <af:separator id="s58"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP52}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot44"/>
+                                                                                                                <af:separator id="s61"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP53}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot43"/>
+                                                                                                                <af:separator id="s59"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outputP54}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot45"/>
+                                                                                                                <af:separator id="s62"/>
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s63"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl57"
+                                                                                                                                 layout="vertical"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.outTemp5}">
+                                                                                                                <af:spacer width="10"
+                                                                                                                           height="10"
+                                                                                                                           id="s106"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outTemp51}"
+                                                                                                                               inlineStyle="color:Maroon;"
+                                                                                                                               id="ot72"/>
+                                                                                                                <af:separator id="s107"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outHumid51}"
+                                                                                                                               inlineStyle="color:Highlight;"
+                                                                                                                               id="ot73"/>
+                                                                                                                <af:separator id="s108"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.outRandomP5}"
+                                                                                                                               inlineStyle="color:Teal;"
+                                                                                                                               id="ot74"/>
+                                                                                                                <af:separator id="s109"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.inputP51}"
+                                                                                                                               inlineStyle="color:Purple;"
+                                                                                                                               id="ot75"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelGroupLayout>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             marginEnd="0px"
+                                                                                                             id="gc7"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid61}"/>
+                                                                                            </af:gridRow>
+                                                                                            <af:gridRow marginTop="0px"
+                                                                                                        height="auto"
+                                                                                                        id="gr4">
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc8"
+                                                                                                             halign="end"
+                                                                                                             rendered="false"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid02}">
+                                                                                                    <af:spacer width="10"
+                                                                                                               height="30"
+                                                                                                               id="s126"/>
+                                                                                                    <af:panelGroupLayout id="pgl43"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:panelBox id="pb2">
+                                                                                                            <f:facet name="toolbar"/>
+                                                                                                            <af:panelGroupLayout id="pgl53"
+                                                                                                                                 layout="vertical">
+                                                                                                                <dvt:statusMeterGauge id="statusMeterGauge1"
+                                                                                                                                      minimum="0"
+                                                                                                                                      maximum="200"
+                                                                                                                                      value="#{pageFlowScope.UserBean.inv}"
+                                                                                                                                      inlineStyle="width:100px; height:12px;"
+                                                                                                                                      plotArea="on"
+                                                                                                                                      rendered="true">
+                                                                                                                    <dvt:gaugeMetricLabel rendered="true"
+                                                                                                                                          id="gml1"/>
+                                                                                                                    <dvt:gaugeThreshold id="thr1"
+                                                                                                                                        color="#d62800"
+                                                                                                                                        maximum="10"/>
+                                                                                                                    <dvt:gaugeThreshold id="thr2"
+                                                                                                                                        color="#f7f700"
+                                                                                                                                        maximum="20"/>
+                                                                                                                    <dvt:gaugeThreshold id="thr3"
+                                                                                                                                        color="#008400"/>
+                                                                                                                </dvt:statusMeterGauge>
+                                                                                                                <af:panelLabelAndMessage label="Inventory:  "
+                                                                                                                                         id="plam2"
+                                                                                                                                         inlineStyle="font-size:large;">
+                                                                                                                    <af:outputText value="#{pageFlowScope.UserBean.inv}"
+                                                                                                                                   id="ot65"/>
+                                                                                                                </af:panelLabelAndMessage>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelBox>
+                                                                                                        <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                                  id="i22"
+                                                                                                                  inlineStyle="height:16px; width:23px;"/>
+                                                                                                        <af:spacer width="10"
+                                                                                                                   height="10"
+                                                                                                                   id="s87"/>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc9"
+                                                                                                             valign="top"
+                                                                                                             halign="start"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid12}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl18"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:poll id="p1"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr11}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr11}"
+                                                                                                                 rendered="false"/>
+                                                                                                        <af:poll id="p2"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr12}"
+                                                                                                                 rendered="false"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr12}"/>
+                                                                                                        <af:poll id="p7"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr13}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr13}"
+                                                                                                                 rendered="false"/>
+                                                                                                        <af:poll id="p21"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr15}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr15}"/>
+                                                                                                        <af:poll id="p22"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr16}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr16}"/>
+                                                                                                        <af:panelBorderLayout id="pbl8"
+                                                                                                                              inlineStyle="height:95px; width:95px; background-color:#C0C0C0; border-radius:50% 50% 50% 50% / 50% 50% 50% 50% ; font-size:large;"
+                                                                                                                              binding="#{pageFlowScope.UserBean.workSt1Block}">
+                                                                                                            <af:spacer id="s9"
+                                                                                                                       width="1"
+                                                                                                                       height="8"/>
+                                                                                                            <af:panelGroupLayout id="pgl11"
+                                                                                                                                 layout="horizontal"
+                                                                                                                                 inlineStyle="font-size:large;">
+                                                                                                                <af:spacer id="s116"
+                                                                                                                           width="18"
+                                                                                                                           height="10"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.myProcessingUnid1}"
+                                                                                                                               id="ot64"
+                                                                                                                               inlineStyle="font-size:small;"/>
+                                                                                                                <!--<af:outputText value="#{pageFlowScope.UserBean.myProcessingUnid1}"
+                                                                                                               id="ot64"
+                                                                                                               inlineStyle="font-size:large;"/>-->
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl45"
+                                                                                                                                 layout="horizontal">
+                                                                                                                <af:spacer id="s117"
+                                                                                                                           width="22"
+                                                                                                                           height="10"/>
+                                                                                                                <af:image id="i21"
+                                                                                                                          inlineStyle="width:50px;height:50px"
+                                                                                                                          source="#{resource['images:drillingIcon.png']}"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelBorderLayout>
+                                                                                                        <af:spacer width="3"
+                                                                                                                   height="10"
+                                                                                                                   id="s17"/>
+                                                                                                        <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                                  id="i17"
+                                                                                                                  inlineStyle="height:16px; width:47px;"/>
+                                                                                                        <af:spacer width="3"
+                                                                                                                   height="10"
+                                                                                                                   id="s75"/>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc10"
+                                                                                                             halign="start"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid22}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl19"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:poll id="p3"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr21}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr21}"
+                                                                                                                 rendered="false"/>
+                                                                                                        <af:poll id="p4"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr22}"
+                                                                                                                 rendered="false"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr22}"/>
+                                                                                                        <af:poll id="p8"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr23}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr23}"
+                                                                                                                 rendered="false"/>
+                                                                                                        <af:poll id="p17"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr24}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr24}"/>
+                                                                                                        <af:poll id="p10"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr25}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr25}"/>
+                                                                                                        <af:poll id="p23"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr26}"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr26}"/>
+                                                                                                        <af:panelBorderLayout id="pbl4"
+                                                                                                                              inlineStyle="height:95px; width:95px; background-color:#C0C0C0; border-radius:50% 50% 50% 50% / 50% 50% 50% 50%; font-size:large;"
+                                                                                                                              binding="#{pageFlowScope.UserBean.workSt2Block}">
+                                                                                                            <af:spacer id="s118"
+                                                                                                                       width="1"
+                                                                                                                       height="8"/>
+                                                                                                            <af:panelGroupLayout id="pgl36"
+                                                                                                                                 layout="horizontal"
+                                                                                                                                 inlineStyle="font-size:large;">
+                                                                                                                <af:spacer id="s68"
+                                                                                                                           width="18"
+                                                                                                                           height="10"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.myProcessingUnid2}"
+                                                                                                                               id="ot2"
+                                                                                                                               inlineStyle="font-size:small;"/>
+                                                                                                                <!--<af:outputText value="#{pageFlowScope.UserBean.myProcessingUnid2}"
+                                                                                                               id="ot2"
+                                                                                                               inlineStyle="font-size:large;"/>-->
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl58"
+                                                                                                                                 layout="horizontal">
+                                                                                                                <af:spacer id="s119"
+                                                                                                                           width="22"
+                                                                                                                           height="10"/>
+                                                                                                                <af:image source="#{resource['images:turnIcn.png']}"
+                                                                                                                          id="i23"
+                                                                                                                          inlineStyle="width:50px;height:50px"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelBorderLayout>
+                                                                                                        <af:spacer width="3"
+                                                                                                                   height="10"
+                                                                                                                   id="s74"/>
+                                                                                                        <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                                  id="i2"
+                                                                                                                  inlineStyle="height:16px; width:47px;"/>
+                                                                                                        <af:spacer width="3"
+                                                                                                                   height="10"
+                                                                                                                   id="s115"/>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180%"
+                                                                                                             id="gc11"
+                                                                                                             halign="start"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid32}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl20"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:poll id="p12"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr31}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr31}"
+                                                                                                                 rendered="false"/>
+                                                                                                        <af:poll id="p13"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr32}"
+                                                                                                                 rendered="false"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr32}"/>
+                                                                                                        <af:poll id="p16"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr33}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr33}"
+                                                                                                                 rendered="false"/>
+                                                                                                        <af:poll id="p20"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr35}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr35}"/>
+                                                                                                        <af:poll id="p24"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr36}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr36}"/>
+                                                                                                        <af:panelBorderLayout id="pbl5"
+                                                                                                                              inlineStyle="height:95px; width:95px; background-color:#C0C0C0; border-radius:50% 50% 50% 50% / 50% 50% 50% 50%; font-size:large;"
+                                                                                                                              binding="#{pageFlowScope.UserBean.workSt3Block}">
+                                                                                                            <af:spacer id="s120"
+                                                                                                                       width="1"
+                                                                                                                       height="8"/>
+                                                                                                            <af:panelGroupLayout id="pgl37"
+                                                                                                                                 layout="horizontal"
+                                                                                                                                 inlineStyle="font-size:large;">
+                                                                                                                <af:spacer id="s69"
+                                                                                                                           width="18    "
+                                                                                                                           height="10"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.myProcessingUnid3}"
+                                                                                                                               id="ot3"
+                                                                                                                               inlineStyle="font-size:small;"/>
+                                                                                                                <!--<af:outputText value="#{pageFlowScope.UserBean.myProcessingUnid3}"
+                                                                                                               id="ot3"
+                                                                                                               inlineStyle="font-size:large;"/>-->
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl59"
+                                                                                                                                 layout="horizontal">
+                                                                                                                <af:spacer id="s121"
+                                                                                                                           width="22"
+                                                                                                                           height="10"/>
+                                                                                                                <af:image source="#{resource['images:Painting.png']}"
+                                                                                                                          id="i24"
+                                                                                                                          inlineStyle="width:50px;height:50px"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelBorderLayout>
+                                                                                                        <af:spacer width="3"
+                                                                                                                   height="10"
+                                                                                                                   id="s73"/>
+                                                                                                        <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                                  id="i19"
+                                                                                                                  inlineStyle="height:16px; width:47px;"/>
+                                                                                                        <af:spacer width="3"
+                                                                                                                   height="10"
+                                                                                                                   id="s12"/>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc12"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid42}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl21"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:poll id="p14"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr41}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr41}"
+                                                                                                                 rendered="false"/>
+                                                                                                        <af:poll id="p15"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr42}"
+                                                                                                                 rendered="false"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr42}"/>
+                                                                                                        <af:poll id="p11"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr43}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr43}"
+                                                                                                                 rendered="false"/>
+                                                                                                        <af:poll id="p19"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr45}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr45}"/>
+                                                                                                        <af:poll id="p25"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr46}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr46}"/>
+                                                                                                        <af:panelBorderLayout id="pbl6"
+                                                                                                                              inlineStyle="height:95px; width:95px; background-color:#C0C0C0; border-radius:50% 50% 50% 50% / 50% 50% 50% 50%; font-size:large;"
+                                                                                                                              binding="#{pageFlowScope.UserBean.workSt4Block}">
+                                                                                                            <af:spacer id="s122"
+                                                                                                                       width="1"
+                                                                                                                       height="8"/>
+                                                                                                            <af:panelGroupLayout id="pgl38"
+                                                                                                                                 layout="horizontal"
+                                                                                                                                 inlineStyle="font-size:large;">
+                                                                                                                <af:spacer id="s70"
+                                                                                                                           width="18"
+                                                                                                                           height="10"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.myProcessingUnid4}"
+                                                                                                                               id="ot4"
+                                                                                                                               inlineStyle="font-size:small;"/>
+                                                                                                                <!--<af:outputText value="#{pageFlowScope.UserBean.myProcessingUnid4}"
+                                                                                                               id="ot4"
+                                                                                                               inlineStyle="font-size:large;"/>-->
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl60"
+                                                                                                                                 layout="horizontal">
+                                                                                                                <af:spacer id="s123"
+                                                                                                                           width="22"
+                                                                                                                           height="10"/>
+                                                                                                                <af:image source="#{resource['images:labelling.png']}"
+                                                                                                                          id="i25"
+                                                                                                                          inlineStyle="width:50px;height:50px"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelBorderLayout>
+                                                                                                        <af:spacer width="3"
+                                                                                                                   height="10"
+                                                                                                                   id="s13"/>
+                                                                                                        <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                                  id="i20"
+                                                                                                                  inlineStyle="height:16px; width:47px;"/>
+                                                                                                        <af:spacer width="3"
+                                                                                                                   height="10"
+                                                                                                                   id="s14"/>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc13"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid52}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl22"
+                                                                                                                         layout="horizontal">
+                                                                                                        <af:poll id="p5"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr51}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr51}"
+                                                                                                                 rendered="false"/>
+                                                                                                        <af:poll id="p6"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr52}"
+                                                                                                                 rendered="false"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr52}"/>
+                                                                                                        <af:poll id="p9"
+                                                                                                                 interval="10"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr53}"
+                                                                                                                 rendered="false"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr53}"/>
+                                                                                                        <af:poll id="p18"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr55}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr55}"/>
+                                                                                                        <af:poll id="p26"
+                                                                                                                 interval="10"
+                                                                                                                 rendered="false"
+                                                                                                                 pollListener="#{pageFlowScope.UserBean.workSt1PollLstnr56}"
+                                                                                                                 binding="#{pageFlowScope.UserBean.pollLstnr56}"/>
+                                                                                                        <af:panelBorderLayout id="pbl7"
+                                                                                                                              inlineStyle="height:95px; width:95px; background-color:#C0C0C0; border-radius:50% 50% 50% 50% / 50% 50% 50% 50%; font-size:large;"
+                                                                                                                              binding="#{pageFlowScope.UserBean.workSt5Block}">
+                                                                                                            <af:spacer id="s124"
+                                                                                                                       width="1"
+                                                                                                                       height="8"/>
+                                                                                                            <af:panelGroupLayout id="pgl39"
+                                                                                                                                 layout="horizontal"
+                                                                                                                                 inlineStyle="font-size:large;"
+                                                                                                                                 binding="#{pageFlowScope.UserBean.partsProcessed}">
+                                                                                                                <af:spacer id="s71"
+                                                                                                                           width="18"
+                                                                                                                           height="10"/>
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.myProcessingUnid5}"
+                                                                                                                               id="ot5"
+                                                                                                                               inlineStyle="font-size:small;"/>
+                                                                                                                <!--<af:outputText value="#{pageFlowScope.UserBean.myProcessingUnid5}"
+                                                                                                               id="ot5"
+                                                                                                               inlineStyle="font-size:large;"/>-->
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <af:panelGroupLayout id="pgl61"
+                                                                                                                                 layout="horizontal">
+                                                                                                                <af:spacer id="s125"
+                                                                                                                           width="22"
+                                                                                                                           height="10"/>
+                                                                                                                <af:image source="#{resource['images:package.png']}"
+                                                                                                                          id="i26"
+                                                                                                                          inlineStyle="width:50px;height:50px"/>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                        </af:panelBorderLayout>
+                                                                                                        <af:spacer width="3"
+                                                                                                                   height="10"
+                                                                                                                   id="s15"/>
+                                                                                                        <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                                  id="i6"
+                                                                                                                  inlineStyle="height:16px; width:47px;"/>
+                                                                                                        <af:spacer width="3"
+                                                                                                                   height="10"
+                                                                                                                   id="s16"/>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             marginEnd="0px"
+                                                                                                             id="gc14"
+                                                                                                             rendered="false"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid62}">
+                                                                                                    <af:spacer width="10"
+                                                                                                               height="30"
+                                                                                                               id="s127"/>
+                                                                                                    <af:panelBox id="pb3">
+                                                                                                        <f:facet name="toolbar"/>
+                                                                                                        <af:panelGroupLayout id="pgl41">
+                                                                                                            <af:panelLabelAndMessage label="Parts Processed :"
+                                                                                                                                     id="plam1"
+                                                                                                                                     binding="#{pageFlowScope.UserBean.numberOfPartsP}">
+                                                                                                                <af:outputText value="#{pageFlowScope.UserBean.numberOfParts}"
+                                                                                                                               id="ot58"
+                                                                                                                               inlineStyle="font-size:x-large;"/>
+                                                                                                            </af:panelLabelAndMessage>
+                                                                                                            <af:image id="i18"
+                                                                                                                      inlineStyle="width:84px; height:53px;"
+                                                                                                                      binding="#{pageFlowScope.UserBean.truck}"
+                                                                                                                      visible="false"
+                                                                                                                      source="#{resource['images:truckLoaded.jpg']}"/>
+                                                                                                        </af:panelGroupLayout>
+                                                                                                    </af:panelBox>
+                                                                                                </af:gridCell>
+                                                                                            </af:gridRow>
+                                                                                            <af:gridRow marginTop="0px"
+                                                                                                        height="auto"
+                                                                                                        marginBottom="0px"
+                                                                                                        id="gr7">
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc15"
+                                                                                                             rendered="false"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid03}"/>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc16"
+                                                                                                             valign="middle"
+                                                                                                             inlineStyle="font-size:large;"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid13}"
+                                                                                                             rendered="false">
+                                                                                                    <af:activeOutputText value="Drilling Machine"
+                                                                                                                         id="aot6"/>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc17"
+                                                                                                             valign="middle"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid23}"
+                                                                                                             rendered="false">
+                                                                                                    <af:activeOutputText value="Turning Machine"
+                                                                                                                         id="aot2"
+                                                                                                                         inlineStyle="font-size:large;"/>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc18"
+                                                                                                             valign="middle"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid33}"
+                                                                                                             rendered="false">
+                                                                                                    <af:activeOutputText value="Painting Machine"
+                                                                                                                         id="aot3"
+                                                                                                                         inlineStyle="font-size:large;"/>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc19"
+                                                                                                             valign="bottom"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid43}"
+                                                                                                             rendered="false">
+                                                                                                    <af:panelGroupLayout id="pgl34"
+                                                                                                                         layout="vertical">
+                                                                                                        <!--<af:separator id="s65"/>-->
+                                                                                                        <!--<af:image source="#{resource['images:down.png']}"
+                                                                                                                                  id="i7"
+                                                                                                                                  inlineStyle="width:16px; height:25px;"/>-->
+                                                                                                        <!--<af:panelBorderLayout id="pbl9"
+                                                                                                                                              inlineStyle="height:50px; width:120px; background-color:#C0C0C0; outline-style:solid;"
+                                                                                                                                              binding="#{pageFlowScope.UserBean.workstation4R}">
+                                                                                                                            <af:outputText id="ot27"
+                                                                                                                                           visible="false"
+                                                                                                                                           binding="#{pageFlowScope.UserBean.rejectedPartWS4}"/>
+                                                                                                                        </af:panelBorderLayout>-->
+                                                                                                        <af:activeOutputText value="Labelling Machine"
+                                                                                                                             id="aot5"
+                                                                                                                             inlineStyle="font-size:large;"/>
+                                                                                                    </af:panelGroupLayout>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             id="gc20"
+                                                                                                             valign="middle"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid53}"
+                                                                                                             rendered="false">
+                                                                                                    <af:activeOutputText value="Packaging Machine"
+                                                                                                                         id="aot4"
+                                                                                                                         inlineStyle="font-size:large;"/>
+                                                                                                </af:gridCell>
+                                                                                                <af:gridCell marginStart="0px"
+                                                                                                             width="180px"
+                                                                                                             marginEnd="0px"
+                                                                                                             id="gc21"
+                                                                                                             binding="#{pageFlowScope.UserBean.wsGrid63}"/>
+                                                                                            </af:gridRow>
+                                                                                        </af:panelGridLayout>
+                                                                                    </af:panelGroupLayout>
+                                                                                </af:panelGroupLayout>
+                                                                            </af:panelGroupLayout>
+                                                                        </af:panelFormLayout>
+                                                                        <af:separator id="s76"/>
+                                                                        <af:panelGroupLayout id="pgl42"
+                                                                                             layout="horizontal"
+                                                                                             halign="center"
+                                                                                             valign="middle"
+                                                                                             inlineStyle="background-attachment:scroll;">
+                                                                            <af:panelBorderLayout id="pbl14"
+                                                                                                  inlineStyle="height:12px; width:12px; outline-style:solid; background-color:#C0C0C0;"/>
+                                                                            <af:spacer width="10" height="10" id="s78"/>
+                                                                            <af:outputText value="Idle" id="ot59"
+                                                                                           inlineStyle="font-size:large;"/>
+                                                                            <af:spacer width="30" height="10" id="s86"/>
+                                                                            <af:panelBorderLayout id="pbl3"
+                                                                                                  inlineStyle="height:12px; width:12px; outline-style:solid; background-color:Yellow;"/>
+                                                                            <af:spacer width="10" height="10" id="s79"/>
+                                                                            <af:outputText value="Entry" id="ot60"
+                                                                                           inlineStyle="font-size:large;"/>
+                                                                            <af:spacer width="25" height="10" id="s80"/>
+                                                                            <af:panelBorderLayout id="pbl11"
+                                                                                                  inlineStyle="height:12px; width:12px; outline-style:solid; background-color:Orange;"/>
+                                                                            <af:spacer width="10" height="10" id="s81"/>
+                                                                            <af:outputText value="Processing" id="ot61"
+                                                                                           inlineStyle="font-size:large;"/>
+                                                                            <af:spacer width="10" height="10" id="s82"/>
+                                                                            <af:panelBorderLayout id="pbl12"
+                                                                                                  inlineStyle="height:12px; width:12px; outline-style:solid; background-color:#B2FF66;"/>
+                                                                            <af:spacer width="10" height="10" id="s84"/>
+                                                                            <af:outputText value="Promoted" id="ot62"
+                                                                                           inlineStyle="font-size:large;"/>
+                                                                            <af:spacer width="10" height="10" id="s85"/>
+                                                                            <af:panelBorderLayout id="pbl13"
+                                                                                                  inlineStyle="height:12px; width:12px; outline-style:solid; background-color:Red;"/>
+                                                                            <af:spacer width="10" height="10" id="s83"/>
+                                                                            <af:outputText value="Rejected" id="ot63"
+                                                                                           inlineStyle="font-size:large;"/>
+                                                                        </af:panelGroupLayout>
+                                                                    </af:panelBox>
+                                                                    <!--<af:panelGroupLayout id="pgl45"
+                                                                                                         layout="horizontal"
+                                                                                                         halign="center">
+                                                                                        <af:outputText value="Copyright &#169; 2015 Robert Bosch Engineering and Business Solutions Private Limited All Rights Reserved."
+                                                                                                       id="ot64"/>
+                                                                                    </af:panelGroupLayout>-->
+                                                                </af:panelGroupLayout>
+                                                                <!--<af:panelGroupLayout id="pgl11"
+                                                                         layout="horizontal">
+                                                        <af:panelGroupLayout id="pgl8"
+                                                                             halign="center">
+                                                            <af:panelBorderLayout id="pbl2"
+                                                                                  inlineStyle="height:114px; width:1000px; background-color:ActiveCaption; font-size:xx-large; border-radius:10px 10px 10px 10px / 10px 10px 10px 10px ; color:Black; font-weight:100; text-align:center; text-height:max-size; vertical-align:middle;">
+                                                                <af:panelGroupLayout id="pgl9"
+                                                                                     layout="vertical"
+                                                                                     halign="center">
+                                                                    <af:spacer width="10"
+                                                                               height="10"
+                                                                               id="s2"/>
+                                                                    <af:outputFormatted value="ESB"
+                                                                                        id="of1"
+                                                                                        inlineStyle="font-size:xx-large; font-weight:bold;"/>
+                                                                </af:panelGroupLayout>
+                                                            </af:panelBorderLayout>
+                                                        </af:panelGroupLayout>
+                                                        <af:spacer width="138" height="10"
+                                                                   id="s7"/>
+                                                    </af:panelGroupLayout>-->
+                                                                <!--<af:panelGroupLayout id="pgl5"
+                                                                         halign="center"
+                                                                         layout="horizontal">
+                                                        -->
+                                                                <!--<af:panelGroupLayout id="pgl4"
+                                                                             layout="horizontal"
+                                                                             inlineStyle="height:300px; width:1000px; background-color:InfoBackground;"
+                                                                             halign="center"
+                                                                             binding="#{pageFlowScope.UserBean.workflowContainer}"/>-->
+                                                                <!--
+                                                        -->
+                                                                <!--<af:image source="#{resource['images:truck.png']}"
+                                                                  shortDesc="truck" id="i1"
+                                                                  inlineStyle="width:138px;"/>-->
+                                                                <!--
+                                                    </af:panelGroupLayout>-->
+                                                            </af:panelGroupLayout>
+                                                        </f:facet>
+                                                    </af:panelBorderLayout>
+                                                </af:panelGroupLayout>
+                                            </f:facet>
+                                        </af:panelStretchLayout>
+                                    </f:facet>
+                                 
+                                </af:decorativeBox>
+                            </f:facet>
+                        </af:decorativeBox>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="25px" marginBottom="5px" id="gr3">
+                    <af:gridCell marginStart="5px" width="100%" id="gc27" columnSpan="3" halign="center"
+                                 valign="middle">
+                        <af:panelGroupLayout id="pgl3" layout="vertical">
+                            <af:outputText value="Copyright &#169; 2015 Robert Bosch Engineering and Business Solutions Private Limited All Rights Reserved."
+                                           id="ot76"/>
+                        </af:panelGroupLayout>
+                    </af:gridCell>
+                </af:gridRow>
+            </af:panelGridLayout>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

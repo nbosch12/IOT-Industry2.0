@@ -1,0 +1,875 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:h="http://java.sun.com/jsf/html">
+    <c:set var="viewcontrollerBundle" value="#{adfBundle['view.viewcontrollerBundle']}"/>
+    <af:panelStretchLayout id="psl1" dimensionsFrom="parent">
+        <f:facet name="center">
+            <af:resource type="javascript">
+              function methodDescription(event) {
+                  var outputText = event.getSource();
+                  AdfCustomEvent.queue(outputText, "MethodDescriptionEvent");
+                  event.cancel();
+              }
+
+              function displayMethodNames(event) {
+                  var commandButton = event.getSource();
+                  AdfCustomEvent.queue(commandButton, "DisplayMethodNamesEvent");
+                  event.cancel();
+              }
+
+              function deleteFunction(event) {
+                  var link = event.getSource();
+                  AdfCustomEvent.queue(link, "ServerEventToGetValue");
+                  event.cancel();
+              }
+            </af:resource>
+            <af:panelGridLayout id="pgl1" inlineStyle="background-color:InactiveBorder;" dimensionsFrom="parent">
+                <af:gridRow marginTop="5px" height="60px" id="gr1">
+                    <af:gridCell marginStart="5px" width="210px" id="gc1">
+                        <af:image source="#{resource['images:bosch_logo.png']}" shortDesc="boschLogo"
+                                  inlineStyle="height:48px;width:160px;" id="i1"/>
+                    </af:gridCell>
+                    <af:gridCell marginStart="5px" width="100%" id="gc2" halign="center" valign="middle"></af:gridCell>
+                    <af:gridCell marginStart="5px" width="380px" marginEnd="5px" id="gc4" halign="end" valign="middle">
+                        <af:panelGroupLayout id="pgl2" layout="horizontal">
+                            <af:menuBar id="mb1">
+                                <af:commandMenuItem text="#{viewcontrollerBundle.GotoUserPage}" id="cmi3"
+                                                    inlineStyle="font-size:small;" action="gotoUserBTF"/>
+                                <af:image source="#{resource['images:verticalLine.png']}" shortDesc="verticalLine"
+                                          id="i7" inlineStyle="height:12px;"/>
+                                <af:commandMenuItem text="#{viewcontrollerBundle.ConfigureMachine}" id="cmi2"
+                                                    inlineStyle="font-size:small;" action="configureMachines"/>
+                                <af:image source="#{resource['images:verticalLine.png']}" shortDesc="verticalLine"
+                                          id="i5" inlineStyle="height:12px;"/>
+                            </af:menuBar>
+                            <af:outputText value="#{viewcontrollerBundle.Welcome}" id="ot1"
+                                           inlineStyle="font-size:small;"/>
+                            <af:image source="#{resource['images:userLogin.png']}" shortDesc="userLogin" id="i3"/>
+                            <af:activeOutputText id="aot1" inlineStyle="font-size:small;"
+                                                 value="#{sessionScope.uname}"/>
+                            <af:spacer width="13" height="10" id="s4"/>
+                            <af:link text="#{viewcontrollerBundle.English}"
+                                     rendered="#{facesContext.viewRoot.locale.language eq 'de'}" id="l2"
+                                     inlineStyle="font-size:small;"
+                                     actionListener="#{pageFlowScope.MachineActionBean.englishLanguage}"/>
+                            <af:link text="#{viewcontrollerBundle.Deutsch}"
+                                     rendered="#{facesContext.viewRoot.locale.language eq 'en'}" id="l1"
+                                     inlineStyle="font-size:small;"
+                                     actionListener="#{pageFlowScope.MachineActionBean.deutschLanguage}"/>
+                            <af:spacer width="13" height="10" id="s5"/>
+                            <af:link text="#{viewcontrollerBundle.Help}" id="l3" inlineStyle="font-size:small;"/>
+                            <af:spacer width="13" height="10" id="s6"/>
+                            <af:link text="#{viewcontrollerBundle.Logout}" id="l4" inlineStyle="font-size:small;"
+                                     action="back"/>
+                            <af:spacer width="13" height="10" id="s7"/>
+                        </af:panelGroupLayout>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="100%" marginBottom="5px" id="gr2">
+                    <af:gridCell marginStart="5px" width="100%" id="gc6" columnSpan="3" halign="stretch"
+                                 valign="stretch">
+                        <af:decorativeBox id="db1" theme="contentBody">
+                            <f:facet name="center">
+                                <af:panelGridLayout id="pgl3">
+                                    <af:gridRow marginTop="5px" height="100%" marginBottom="5px" id="gr4">
+                                        <af:gridCell marginStart="5px" width="100%" id="gc3" halign="stretch"
+                                                     valign="stretch">
+                                            <af:decorativeBox theme="default" id="db3">
+                                                <f:facet name="center">
+                                                    <af:panelGroupLayout id="pgl6" layout="scroll">
+                                                        <af:panelBorderLayout id="pbl1">
+                                                            <f:facet name="right">
+                                                                <af:panelGroupLayout id="pgl5" layout="scroll">
+                                                                    <af:panelBorderLayout id="pbl2">
+                                                                        <f:facet name="right">
+                                                                            <af:panelGroupLayout id="pgl7"
+                                                                                                 layout="vertical"
+                                                                                                 halign="center"
+                                                                                                 inlineStyle="width:1228px; height:386px;">
+                                                                                <af:panelGroupLayout id="pgl4"
+                                                                                                     layout="horizontal">
+                                                                                    <af:inputText value="#{bindings.MaterialId1.inputValue}"
+                                                                                                  label="#{viewcontrollerBundle.ENTER_MATERIAL_NAME}"
+                                                                                                  required="#{bindings.MaterialId1.hints.mandatory}"
+                                                                                                  columns="#{bindings.MaterialId1.hints.displayWidth}"
+                                                                                                  maximumLength="#{bindings.MaterialId1.hints.precision}"
+                                                                                                  shortDesc="#{bindings.MaterialId1.hints.tooltip}"
+                                                                                                  id="it17"
+                                                                                                  showRequired="true"
+                                                                                                  binding="#{pageFlowScope.MachineActionBean.refIdBinding}">
+                                                                                        <f:validator binding="#{bindings.MaterialId1.validator}"/>
+                                                                                        <af:autoSuggestBehavior suggestedItems="#{bindings.MaterialId.suggestedItems}"/>
+                                                                                    </af:inputText>
+                                                                                    <af:popup childCreation="deferred"
+                                                                                              autoCancel="disabled"
+                                                                                              id="p1"
+                                                                                              binding="#{pageFlowScope.MachineActionBean.rfIdPopupBinding}">
+                                                                                        <af:dialog id="d1" type="none"
+                                                                                                   inlineStyle="height:60px; width:170px;"
+                                                                                                   title="Error"
+                                                                                                   titleIconSource="#{resource['images:redWarning.png']}">
+                                                                                            <af:outputText value="#{viewcontrollerBundle.PLEASE_ENTER_RFID}"
+                                                                                                           id="ot2"/>
+                                                                                        </af:dialog>
+                                                                                    </af:popup>
+                                                                                    <af:spacer width="450" height="10"
+                                                                                               id="s1"/>
+                                                                                    <af:button text="#{viewcontrollerBundle.LOAD_WORKFLOW}"
+                                                                                               id="b1"
+                                                                                               actionListener="#{pageFlowScope.MachineActionBean.loadWorkflow}"/>
+                                                                                    <af:spacer width="10" height="10"
+                                                                                               id="s18"/>
+                                                                                    <af:button text="#{viewcontrollerBundle.CLEAR_WORKFLOW}"
+                                                                                               id="b2"
+                                                                                               actionListener="#{pageFlowScope.MachineActionBean.clearWorkflow}"/>
+                                                                                    <af:spacer width="10" height="10"
+                                                                                               id="s20"/>
+                                                                                    <af:button text="#{viewcontrollerBundle.SAVE_WORKFLOW}"
+                                                                                               id="b3"
+                                                                                               actionListener="#{pageFlowScope.MachineActionBean.saveWfWithMethods}"
+                                                                                               disabled="false"
+                                                                                               binding="#{pageFlowScope.MachineActionBean.saveWorkflowButtonBinding}"/>
+                                                                                    <af:popup childCreation="deferred"
+                                                                                              autoCancel="disabled"
+                                                                                              id="p10"
+                                                                                              binding="#{pageFlowScope.MachineActionBean.saveWorkFlowPopupBinding}">
+                                                                                        <af:dialog id="d9" type="ok">
+                                                                                            <af:outputText value="#{viewcontrollerBundle.WORKFLOW_SAVED_SUCCESSFULLY___}"
+                                                                                                           id="ot15"/>
+                                                                                        </af:dialog>
+                                                                                    </af:popup>
+                                                                                </af:panelGroupLayout>
+                                                                                <af:spacer width="10" height="200"
+                                                                                           id="s2"/>
+                                                                                <af:panelGroupLayout id="pgl8"
+                                                                                                     layout="horizontal"
+                                                                                                     halign="center"
+                                                                                                     binding="#{pageFlowScope.MachineActionBean.pgridContainerBinding}">
+                                                                                    <af:panelGridLayout id="pgl9">
+                                                                                        <af:gridRow marginTop="5px"
+                                                                                                    height="auto"
+                                                                                                    id="gr6">
+                                                                                            <af:gridCell marginStart="5px"
+                                                                                                         width="180px"
+                                                                                                         id="gc15"
+                                                                                                         rendered="false"
+                                                                                                         binding="#{pageFlowScope.MachineActionBean.gc15Binding}">
+                                                                                                <af:panelGroupLayout id="pgl11"
+                                                                                                                     layout="horizontal">
+                                                                                                    <af:commandButton id="cb3"
+                                                                                                                      inlineStyle="height:80px; width:80px; text-align:center; border-radius:50%;border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                                                      icon="#{resource['images:drillingIcon.png']}"
+                                                                                                                      binding="#{pageFlowScope.MachineActionBean.drillCmdBtnBinding}">
+                                                                                                        <af:dropTarget dropListener="#{pageFlowScope.MachineActionBean.handleDndDT}"
+                                                                                                                       actions="MOVE">
+                                                                                                            <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                                                        </af:dropTarget>
+                                                                                                        <af:showPopupBehavior popupId="p8"
+                                                                                                                              triggerType="click"/>
+                                                                                                        <af:clientListener method="displayMethodNames"
+                                                                                                                           type="click"/>
+                                                                                                        <af:serverListener type="DisplayMethodNamesEvent"
+                                                                                                                           method="#{pageFlowScope.MachineActionBean.displayMethodNames}"/>
+                                                                                                    </af:commandButton>
+                                                                                                    <af:image source="#{resource['images:Delete.png']}"
+                                                                                                              shortDesc="deleteIcon"
+                                                                                                              id="i2"
+                                                                                                              visible="false"/>
+                                                                                                    <af:popup childCreation="immediate"
+                                                                                                             autoCancel="disabled"
+                                                                                                              id="p8"
+                                                                                                              binding="#{pageFlowScope.MachineActionBean.showAllMethBinding}"
+                                                                                                              popupCanceledListener="#{pageFlowScope.MachineActionBean.deleteMethodNames}">
+                                                                                                        <af:dialog id="d8"
+                                                                                                                   type="none"
+                                                                                                                   stretchChildren="first"
+                                                                                                                   binding="#{pageFlowScope.MachineActionBean.showAllMethDialogBinding}"
+                                                                                                                   inlineStyle="width:300px; height:150px;"></af:dialog>
+                                                                                                    </af:popup>
+                                                                                                    <af:popup childCreation="deferred"
+                                                                                                              autoCancel="disabled"
+                                                                                                              id="p2"
+                                                                                                              binding="#{pageFlowScope.MachineActionBean.showMetParPopBinding}">
+                                                                                                        <af:dialog id="d2"
+                                                                                                                   type="cancel"
+                                                                                                                   title="#{viewcontrollerBundle.ENTER_METHODNAME_AND_PARAMETERS}">
+                                                                                                            <af:panelGroupLayout id="pgl20">
+                                                                                                                <af:panelGroupLayout id="pgl21"
+                                                                                                                                     layout="vertical"
+                                                                                                                                     halign="center">
+                                                                                                                    <af:selectOneChoice value="#{bindings.MethodName.inputValue}"
+                                                                                                                                        required="#{bindings.MethodName.hints.mandatory}"
+                                                                                                                                        shortDesc="#{bindings.MethodName.hints.tooltip}"
+                                                                                                                                        id="soc1"
+                                                                                                                                        binding="#{pageFlowScope.MachineActionBean.methNameSOCBinding}"
+                                                                                                                                        label="#{viewcontrollerBundle.METHOD_NAME}"
+                                                                                                                                        valueChangeListener="#{pageFlowScope.MachineActionBean.drillingMethodNameVCE}"
+                                                                                                                                        autoSubmit="true">
+                                                                                                                        <af:forEach items="#{bindings.MachineMethodsVO1.rangeSet}"
+                                                                                                                                    var="drillingList">
+                                                                                                                            <af:selectItem label="#{drillingList.MethodName}"
+                                                                                                                                           id="si1"
+                                                                                                                                           value="#{drillingList.MethodName}"
+                                                                                                                                           disabled="#{pageFlowScope.MachineActionBean.allAddedDrillTempMethods.contains(drillingList.MethodName)}"/>
+                                                                                                                        </af:forEach>
+                                                                                                                        <f:validator binding="#{bindings.MethodName.validator}"/>
+                                                                                                                    </af:selectOneChoice>
+                                                                                                                    <af:inputText label="#{viewcontrollerBundle.Parameter1}"
+                                                                                                                                  id="it3"
+                                                                                                                                  binding="#{pageFlowScope.MachineActionBean.param1Binding}"/>
+                                                                                                                    <af:inputText label="#{viewcontrollerBundle.PARAMETER_2}"
+                                                                                                                                  id="it4"
+                                                                                                                                  binding="#{pageFlowScope.MachineActionBean.param2Binding}"/>
+                                                                                                                </af:panelGroupLayout>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <f:facet name="buttonBar">
+                                                                                                                <af:button text="Ok"
+                                                                                                                           id="b4"
+                                                                                                                           actionListener="#{pageFlowScope.MachineActionBean.addMethodParam}"/>
+                                                                                                            </f:facet>
+                                                                                                        </af:dialog>
+                                                                                                    </af:popup>
+                                                                                                    <af:popup childCreation="immediate"
+                                                                                                              autoCancel="disabled"
+                                                                                                              id="p11"
+                                                                                                              binding="#{pageFlowScope.MachineActionBean.selectMethodNamePopupBinding}">
+                                                                                                        <af:dialog id="d10"
+                                                                                                                   type="ok">
+                                                                                                            <af:outputFormatted value="Please select the Method Name"
+                                                                                                                                id="of2"/>
+                                                                                                        </af:dialog>
+                                                                                                    </af:popup>
+                                                                                                    <af:spacer width="20"
+                                                                                                               height="10"
+                                                                                                               id="s9"/>
+                                                                                                    <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                              shortDesc="forwardArrow"
+                                                                                                              id="i8"/>
+                                                                                                    <af:spacer width="20"
+                                                                                                               height="10"
+                                                                                                               id="s10"/>
+                                                                                                </af:panelGroupLayout>
+                                                                                            </af:gridCell>
+                                                                                            <af:gridCell marginStart="5px"
+                                                                                                         width="180px"
+                                                                                                         id="gc16"
+                                                                                                         rendered="false"
+                                                                                                         binding="#{pageFlowScope.MachineActionBean.gc16Binding}">
+                                                                                                <af:panelGroupLayout id="pgl12"
+                                                                                                                     layout="horizontal">
+                                                                                                    <af:commandButton id="cb4"
+                                                                                                                      inlineStyle="height:80px; width:80px; text-align:center; border-radius:50%;border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                                                      icon="#{resource['images:turnIcn.png']}"
+                                                                                                                      binding="#{pageFlowScope.MachineActionBean.turnCmdBtnBinding}">
+                                                                                                        <af:dropTarget dropListener="#{pageFlowScope.MachineActionBean.handleDndTurning}"
+                                                                                                                       actions="MOVE">
+                                                                                                            <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                                                        </af:dropTarget>
+                                                                                                        <af:showPopupBehavior popupId="p8"
+                                                                                                                              triggerType="click"
+                                                                                                                              align="afterEnd"/>
+                                                                                                        <af:clientListener method="displayMethodNames"
+                                                                                                                           type="click"/>
+                                                                                                        <af:serverListener type="DisplayMethodNamesEvent"
+                                                                                                                           method="#{pageFlowScope.MachineActionBean.displayMethodNames}"/>
+                                                                                                    </af:commandButton>
+                                                                                                    <af:popup childCreation="deferred"
+                                                                                                              autoCancel="disabled"
+                                                                                                              id="p3"
+                                                                                                              binding="#{pageFlowScope.MachineActionBean.showMetParPopBindTurn}">
+                                                                                                        <af:dialog id="d3"
+                                                                                                                   type="cancel"
+                                                                                                                   title="#{viewcontrollerBundle.ENTER_METHODNAME_AND_PARAMETERS}">
+                                                                                                            <af:panelGroupLayout id="pgl22">
+                                                                                                                <af:panelGroupLayout id="pgl23"
+                                                                                                                                     layout="vertical"
+                                                                                                                                     halign="center">
+                                                                                                                    <af:selectOneChoice value="#{bindings.MethodName.inputValue}"
+                                                                                                                                        label="#{viewcontrollerBundle.METHOD_NAME}"
+                                                                                                                                        required="#{bindings.MethodName.hints.mandatory}"
+                                                                                                                                        shortDesc="#{bindings.MethodName.hints.tooltip}"
+                                                                                                                                        valueChangeListener="#{pageFlowScope.MachineActionBean.turningMethodNameVCE}"
+                                                                                                                                        autoSubmit="true"
+                                                                                                                                        id="soc2"
+                                                                                                                                        binding="#{pageFlowScope.MachineActionBean.turnMethNameSOCBinding}">
+                                                                                                                        <af:forEach items="#{bindings.MachineMethodsVO1.rangeSet}"
+                                                                                                                                    var="turningList">
+                                                                                                                            <af:selectItem label="#{turningList.MethodName}"
+                                                                                                                                           id="si2"
+                                                                                                                                           value="#{turningList.MethodName}"
+                                                                                                                                           disabled="#{pageFlowScope.MachineActionBean.allAddedTurningMethods.contains(turningList.MethodName)}"/>
+                                                                                                                        </af:forEach>
+                                                                                                                        <f:validator binding="#{bindings.MethodName.validator}"/>
+                                                                                                                    </af:selectOneChoice>
+                                                                                                                    <af:inputText label="#{viewcontrollerBundle.Parameter1}"
+                                                                                                                                  id="it6"
+                                                                                                                                  binding="#{pageFlowScope.MachineActionBean.param1BindTurn}"/>
+                                                                                                                    <af:inputText label="#{viewcontrollerBundle.PARAMETER_2}"
+                                                                                                                                  id="it7"
+                                                                                                                                  binding="#{pageFlowScope.MachineActionBean.param2BindTurn}"/>
+                                                                                                                </af:panelGroupLayout>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <f:facet name="buttonBar">
+                                                                                                                <af:button text="Ok"
+                                                                                                                           id="b5"
+                                                                                                                           actionListener="#{pageFlowScope.MachineActionBean.addMethParamTurn}"/>
+                                                                                                            </f:facet>
+                                                                                                        </af:dialog>
+                                                                                                    </af:popup>
+                                                                                                    <af:spacer width="20"
+                                                                                                               height="10"
+                                                                                                               id="s11"/>
+                                                                                                    <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                              shortDesc="forwardArrow"
+                                                                                                              id="i9"/>
+                                                                                                    <af:spacer width="20"
+                                                                                                               height="10"
+                                                                                                               id="s13"/>
+                                                                                                </af:panelGroupLayout>
+                                                                                            </af:gridCell>
+                                                                                            <af:gridCell marginStart="5px"
+                                                                                                         width="180px"
+                                                                                                         id="gc17"
+                                                                                                         rendered="false"
+                                                                                                         binding="#{pageFlowScope.MachineActionBean.gc17Binding}">
+                                                                                                <af:panelGroupLayout id="pgl14"
+                                                                                                                     layout="horizontal">
+                                                                                                    <af:commandButton id="cb5"
+                                                                                                                      inlineStyle="height:80px; width:80px; text-align:center; border-radius:50%;border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                                                      icon="#{resource['images:Painting.png']}"
+                                                                                                                      binding="#{pageFlowScope.MachineActionBean.paintCmdBtnBinding}">
+                                                                                                        <af:dropTarget dropListener="#{pageFlowScope.MachineActionBean.handleDndPaint}"
+                                                                                                                       actions="MOVE">
+                                                                                                            <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                                                        </af:dropTarget>
+                                                                                                        <af:showPopupBehavior popupId="p8"
+                                                                                                                              triggerType="click"
+                                                                                                                              align="afterEnd"/>
+                                                                                                        <af:clientListener method="displayMethodNames"
+                                                                                                                           type="click"/>
+                                                                                                        <af:serverListener type="DisplayMethodNamesEvent"
+                                                                                                                           method="#{pageFlowScope.MachineActionBean.displayMethodNames}"/>
+                                                                                                    </af:commandButton>
+                                                                                                    <af:popup childCreation="deferred"
+                                                                                                              autoCancel="disabled"
+                                                                                                              id="p4"
+                                                                                                              binding="#{pageFlowScope.MachineActionBean.showMetParPopBindPaint}">
+                                                                                                        <af:dialog id="d4"
+                                                                                                                   type="cancel"
+                                                                                                                   title="#{viewcontrollerBundle.ENTER_METHODNAME_AND_PARAMETERS}">
+                                                                                                            <af:panelGroupLayout id="pgl24">
+                                                                                                                <af:panelGroupLayout id="pgl25"
+                                                                                                                                     layout="vertical"
+                                                                                                                                     halign="center">
+                                                                                                                    <af:selectOneChoice value="#{bindings.MethodName.inputValue}"
+                                                                                                                                        required="#{bindings.MethodName.hints.mandatory}"
+                                                                                                                                        shortDesc="#{bindings.MethodName.hints.tooltip}"
+                                                                                                                                        id="soc3"
+                                                                                                                                        binding="#{pageFlowScope.MachineActionBean.paintMethNameSOCBinding}"
+                                                                                                                                        label="#{viewcontrollerBundle.METHOD_NAME}"
+                                                                                                                                        valueChangeListener="#{pageFlowScope.MachineActionBean.paintingMethodNameVCE}"
+                                                                                                                                        autoSubmit="true">
+                                                                                                                        <af:forEach items="#{bindings.MachineMethodsVO1.rangeSet}"
+                                                                                                                                    var="paintingList">
+                                                                                                                            <af:selectItem label="#{paintingList.MethodName}"
+                                                                                                                                           id="si3"
+                                                                                                                                           value="#{paintingList.MethodName}"
+                                                                                                                                           disabled="#{pageFlowScope.MachineActionBean.allAddedPaintingMethods.contains(paintingList.MethodName)}"/>
+                                                                                                                        </af:forEach>
+                                                                                                                        <f:validator binding="#{bindings.MethodName.validator}"/>
+                                                                                                                    </af:selectOneChoice>
+                                                                                                                    <af:inputText label="#{viewcontrollerBundle.Parameter1}"
+                                                                                                                                  id="it9"
+                                                                                                                                  binding="#{pageFlowScope.MachineActionBean.param1BindPaint}"/>
+                                                                                                                    <af:inputText label="#{viewcontrollerBundle.PARAMETER_2}"
+                                                                                                                                  id="it10"
+                                                                                                                                  binding="#{pageFlowScope.MachineActionBean.param2BindPaint}"/>
+                                                                                                                </af:panelGroupLayout>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <f:facet name="buttonBar">
+                                                                                                                <af:button text="Ok"
+                                                                                                                           id="b6"
+                                                                                                                           actionListener="#{pageFlowScope.MachineActionBean.addMethParamPaint}"/>
+                                                                                                            </f:facet>
+                                                                                                        </af:dialog>
+                                                                                                    </af:popup>
+                                                                                                    <af:spacer width="20"
+                                                                                                               height="10"
+                                                                                                               id="s14"/>
+                                                                                                    <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                              shortDesc="forwardArrow"
+                                                                                                              id="i10"/>
+                                                                                                    <af:spacer width="20"
+                                                                                                               height="10"
+                                                                                                               id="s15"/>
+                                                                                                </af:panelGroupLayout>
+                                                                                            </af:gridCell>
+                                                                                            <af:gridCell marginStart="5px"
+                                                                                                         width="180px"
+                                                                                                         id="gc18"
+                                                                                                         rendered="false"
+                                                                                                         binding="#{pageFlowScope.MachineActionBean.gc18Binding}">
+                                                                                                <af:panelGroupLayout id="pgl15"
+                                                                                                                     layout="horizontal">
+                                                                                                    <af:commandButton id="cb6"
+                                                                                                                      inlineStyle="height:80px; width:80px; text-align:center; border-radius:50%;border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                                                      icon="#{resource['images:labelling.png']}"
+                                                                                                                      binding="#{pageFlowScope.MachineActionBean.labelCmdBtnBinding}">
+                                                                                                        <af:dropTarget dropListener="#{pageFlowScope.MachineActionBean.handleDndLabel}"
+                                                                                                                       actions="MOVE">
+                                                                                                            <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                                                        </af:dropTarget>
+                                                                                                        <af:showPopupBehavior popupId="p8"
+                                                                                                                              triggerType="click"
+                                                                                                                              align="afterEnd"/>
+                                                                                                        <af:clientListener method="displayMethodNames"
+                                                                                                                           type="click"/>
+                                                                                                        <af:serverListener type="DisplayMethodNamesEvent"
+                                                                                                                           method="#{pageFlowScope.MachineActionBean.displayMethodNames}"/>
+                                                                                                    </af:commandButton>
+                                                                                                    <af:popup childCreation="deferred"
+                                                                                                              autoCancel="disabled"
+                                                                                                              id="p5"
+                                                                                                              binding="#{pageFlowScope.MachineActionBean.showMetParPopBindLabel}">
+                                                                                                        <af:dialog id="d5"
+                                                                                                                   type="cancel"
+                                                                                                                   title="#{viewcontrollerBundle.ENTER_METHODNAME_AND_PARAMETERS}">
+                                                                                                            <af:panelGroupLayout id="pgl26">
+                                                                                                                <af:panelGroupLayout id="pgl27"
+                                                                                                                                     layout="vertical"
+                                                                                                                                     halign="center">
+                                                                                                                    <af:selectOneChoice value="#{bindings.MethodName.inputValue}"
+                                                                                                                                        binding="#{pageFlowScope.MachineActionBean.labelMethNameSOCBinding}"
+                                                                                                                                        label="#{viewcontrollerBundle.METHOD_NAME}"
+                                                                                                                                        valueChangeListener="#{pageFlowScope.MachineActionBean.labellingMethodNameVCE}"
+                                                                                                                                        autoSubmit="true"
+                                                                                                                                        required="#{bindings.MethodName.hints.mandatory}"
+                                                                                                                                        shortDesc="#{bindings.MethodName.hints.tooltip}"
+                                                                                                                                        id="soc4">
+                                                                                                                        <af:forEach items="#{bindings.MachineMethodsVO1.rangeSet}"
+                                                                                                                                    var="labellingList">
+                                                                                                                            <af:selectItem label="#{labellingList.MethodName}"
+                                                                                                                                           id="si4"
+                                                                                                                                           value="#{labellingList.MethodName}"
+                                                                                                                                           disabled="#{pageFlowScope.MachineActionBean.allAddedLabellingMethods.contains(labellingList.MethodName)}"/>
+                                                                                                                        </af:forEach>
+                                                                                                                        <f:validator binding="#{bindings.MethodName.validator}"/>
+                                                                                                                    </af:selectOneChoice>
+                                                                                                                    <af:inputText label="#{viewcontrollerBundle.Parameter1}"
+                                                                                                                                  id="it12"
+                                                                                                                                  binding="#{pageFlowScope.MachineActionBean.param1BindLabel}"/>
+                                                                                                                    <af:inputText label="#{viewcontrollerBundle.PARAMETER_2}"
+                                                                                                                                  id="it13"
+                                                                                                                                  binding="#{pageFlowScope.MachineActionBean.param2BindLabel}"/>
+                                                                                                                </af:panelGroupLayout>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <f:facet name="buttonBar">
+                                                                                                                <af:button text="Ok"
+                                                                                                                           id="b7"
+                                                                                                                           actionListener="#{pageFlowScope.MachineActionBean.addMethParamLabel}"/>
+                                                                                                            </f:facet>
+                                                                                                        </af:dialog>
+                                                                                                    </af:popup>
+                                                                                                    <af:spacer width="20"
+                                                                                                               height="10"
+                                                                                                               id="s16"/>
+                                                                                                    <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                              shortDesc="forwardArrow"
+                                                                                                              id="i11"/>
+                                                                                                    <af:spacer width="20"
+                                                                                                               height="10"
+                                                                                                               id="s17"/>
+                                                                                                </af:panelGroupLayout>
+                                                                                            </af:gridCell>
+                                                                                            <af:gridCell marginStart="5px"
+                                                                                                         width="180px"
+                                                                                                         id="gc19"
+                                                                                                         rendered="false"
+                                                                                                         binding="#{pageFlowScope.MachineActionBean.gc19Binding}">
+                                                                                                <af:panelGroupLayout id="pgl10"
+                                                                                                                     layout="horizontal">
+                                                                                                    <af:commandButton id="cb2"
+                                                                                                                      inlineStyle="height:80px; width:80px; text-align:center; border-radius:50%;border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                                                      icon="#{resource['images:package.png']}"
+                                                                                                                      binding="#{pageFlowScope.MachineActionBean.packCmdBtnBinding}">
+                                                                                                        <af:dropTarget dropListener="#{pageFlowScope.MachineActionBean.handleDndPack}"
+                                                                                                                       actions="MOVE">
+                                                                                                            <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                                                        </af:dropTarget>
+                                                                                                        <af:showPopupBehavior popupId="p8"
+                                                                                                                              triggerType="click"
+                                                                                                                              align="afterEnd"/>
+                                                                                                        <af:clientListener method="displayMethodNames"
+                                                                                                                           type="click"/>
+                                                                                                        <af:serverListener type="DisplayMethodNamesEvent"
+                                                                                                                           method="#{pageFlowScope.MachineActionBean.displayMethodNames}"/>
+                                                                                                    </af:commandButton>
+                                                                                                    <af:popup childCreation="deferred"
+                                                                                                              autoCancel="disabled"
+                                                                                                              id="p6"
+                                                                                                              binding="#{pageFlowScope.MachineActionBean.showMetParPopBindPack}">
+                                                                                                        <af:dialog id="d6"
+                                                                                                                   type="cancel"
+                                                                                                                   title="#{viewcontrollerBundle.ENTER_METHODNAME_AND_PARAMETERS}">
+                                                                                                            <af:panelGroupLayout id="pgl28">
+                                                                                                                <af:panelGroupLayout id="pgl29"
+                                                                                                                                     layout="vertical"
+                                                                                                                                     halign="center">
+                                                                                                                    <af:selectOneChoice value="#{bindings.MethodName.inputValue}"
+                                                                                                                                        binding="#{pageFlowScope.MachineActionBean.packMethNameSOCBinding}"
+                                                                                                                                        label="#{viewcontrollerBundle.METHOD_NAME}"
+                                                                                                                                        valueChangeListener="#{pageFlowScope.MachineActionBean.packagingMethodNameVCE}"
+                                                                                                                                        autoSubmit="true"
+                                                                                                                                        required="#{bindings.MethodName.hints.mandatory}"
+                                                                                                                                        shortDesc="#{bindings.MethodName.hints.tooltip}"
+                                                                                                                                        id="soc5">
+                                                                                                                        <af:forEach items="#{bindings.MachineMethodsVO1.rangeSet}"
+                                                                                                                                    var="packagingList">
+                                                                                                                            <af:selectItem label="#{packagingList.MethodName}"
+                                                                                                                                           id="si5"
+                                                                                                                                           value="#{packagingList.MethodName}"
+                                                                                                                                           disabled="#{pageFlowScope.MachineActionBean.allAddedPackagingMethods.contains(packagingList.MethodName)}"/>
+                                                                                                                        </af:forEach>
+                                                                                                                        <f:validator binding="#{bindings.MethodName.validator}"/>
+                                                                                                                    </af:selectOneChoice>
+                                                                                                                    <af:inputText label="#{viewcontrollerBundle.Parameter1}"
+                                                                                                                                  id="it15"
+                                                                                                                                  binding="#{pageFlowScope.MachineActionBean.param1BindPack}"/>
+                                                                                                                    <af:inputText label="#{viewcontrollerBundle.PARAMETER_2}"
+                                                                                                                                  id="it16"
+                                                                                                                                  binding="#{pageFlowScope.MachineActionBean.param2BindPack}"/>
+                                                                                                                </af:panelGroupLayout>
+                                                                                                            </af:panelGroupLayout>
+                                                                                                            <f:facet name="buttonBar">
+                                                                                                                <af:button text="Ok"
+                                                                                                                           id="b8"
+                                                                                                                           actionListener="#{pageFlowScope.MachineActionBean.addMethParamPack}"/>
+                                                                                                            </f:facet>
+                                                                                                        </af:dialog>
+                                                                                                    </af:popup>
+                                                                                                    <af:spacer width="20"
+                                                                                                               height="10"
+                                                                                                               id="s3"/>
+                                                                                                    <af:image source="#{resource['images:forwardArrow.png']}"
+                                                                                                              shortDesc="forwardArrow"
+                                                                                                              id="i4"/>
+                                                                                                    <af:spacer width="20"
+                                                                                                               height="10"
+                                                                                                               id="s8"/>
+                                                                                                </af:panelGroupLayout>
+                                                                                            </af:gridCell>
+                                                                                            <af:gridCell marginStart="5px"
+                                                                                                         width="150px"
+                                                                                                         marginEnd="5px"
+                                                                                                         rendered="false"
+                                                                                                         id="gc20"
+                                                                                                         binding="#{pageFlowScope.MachineActionBean.gc20Binding}">
+                                                                                                <af:image source="#{resource['images:truckLoaded.jpg']}"
+                                                                                                          shortDesc="truckIcon"
+                                                                                                          id="i13"
+                                                                                                          inlineStyle="width:140px;"/>
+                                                                                            </af:gridCell>
+                                                                                        </af:gridRow>
+                                                                                    </af:panelGridLayout>
+                                                                                </af:panelGroupLayout>
+                                                                            </af:panelGroupLayout>
+                                                                        </f:facet>
+                                                                    </af:panelBorderLayout>
+                                                                </af:panelGroupLayout>
+                                                            </f:facet>
+                                                        </af:panelBorderLayout>
+                                                    </af:panelGroupLayout>
+                                                </f:facet>
+                                            </af:decorativeBox>
+                                        </af:gridCell>
+                                        <af:gridCell marginStart="5px" marginEnd="5px" id="gc21" width="220px"
+                                                     halign="stretch" valign="stretch"
+                                                     inlineStyle="background-color:ButtonFace;">
+                                            <af:panelGroupLayout id="pgl16"
+                                                                 inlineStyle="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px;">
+                                                <af:panelGroupLayout id="pgl17" layout="vertical" halign="center">
+                                                    <af:panelBox text="#{viewcontrollerBundle.EnvironmentalMethods}"
+                                                                 id="pb1" showDisclosure="false"
+                                                                 inlineStyle="text-align:center;">
+                                                        <af:panelGroupLayout id="pgl19">
+                                                            <af:popup childCreation="deferred" autoCancel="disabled"
+                                                                      id="p7"
+                                                                      binding="#{pageFlowScope.MachineActionBean.showAllMethodNamesBinding}">
+                                                                <af:dialog id="pw1"
+                                                                           inlineStyle="width:320px; height:310px; font-size:small;"
+                                                                           type="none"
+                                                                           title="#{viewcontrollerBundle.HELP_ON_ENVIRONMENTAL_METHODS__} #{pageFlowScope.MachineActionBean.headingMethodPopup}"
+                                                                           titleIconSource="#{resource['images:Help-icon.png']}">
+                                                                    <af:panelGroupLayout id="pgl18" layout="scroll">
+                                                                        <af:panelGridLayout id="pgl30">
+                                                                            <af:gridRow marginTop="5px" height="auto"
+                                                                                        id="gr5">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc7">
+                                                                                    <af:outputText value="#{pageFlowScope.MachineActionBean.parentMethod}"
+                                                                                                   id="ot4"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;"></af:outputText>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                            <af:gridRow marginTop="8px" height="auto"
+                                                                                        id="gr7">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc8">
+                                                                                    <af:outputText id="ot5"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;"
+                                                                                                   value="#{pageFlowScope.MachineActionBean.methodName1}">
+                                                                                        <af:clientAttribute name="methodName1"
+                                                                                                            value="#{pageFlowScope.MachineActionBean.methodName1}"/>
+                                                                                        <af:clientListener method="methodDescription"
+                                                                                                           type="dblClick"/>
+                                                                                        <af:serverListener type="MethodDescriptionEvent"
+                                                                                                           method="#{pageFlowScope.MachineActionBean.showMethodDescription}"/>
+                                                                                    </af:outputText>
+                                                                                    <af:popup childCreation="deferred"
+                                                                                              autoCancel="disabled"
+                                                                                              id="p9"
+                                                                                              binding="#{pageFlowScope.MachineActionBean.methodDescriptionPopupBinding}">
+                                                                                        <af:dialog id="d7" type="none"
+                                                                                                   titleIconSource="#{resource['images:Help-icon.png']}"
+                                                                                                   inlineStyle="width:270px; height:140px; font-size:small;"
+                                                                                                   title="#{pageFlowScope.MachineActionBean.titleMethodDesc}">
+                                                                                            <af:outputFormatted id="of1"
+                                                                                                                value="#{pageFlowScope.MachineActionBean.method1Desciption}"
+                                                                                                                inlineStyle="overflow-wrap:break-word;"/>
+                                                                                        </af:dialog>
+                                                                                    </af:popup>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                            <af:gridRow marginTop="5px" height="auto"
+                                                                                        id="gr8">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc9">
+                                                                                    <af:outputText value="#{pageFlowScope.MachineActionBean.methodName2}"
+                                                                                                   id="ot6"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;">
+                                                                                        <af:clientAttribute name="methodName2"
+                                                                                                            value="#{pageFlowScope.MachineActionBean.methodName2}"/>
+                                                                                        <af:clientListener method="methodDescription"
+                                                                                                           type="dblClick"/>
+                                                                                        <af:serverListener type="MethodDescriptionEvent"
+                                                                                                           method="#{pageFlowScope.MachineActionBean.showMethodDescription}"/>
+                                                                                    </af:outputText>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                            <af:gridRow marginTop="5px" height="auto"
+                                                                                        id="gr9">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc10">
+                                                                                    <af:outputText value="#{pageFlowScope.MachineActionBean.methodName3}"
+                                                                                                   id="ot7"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;">
+                                                                                        <af:clientAttribute name="methodName3"
+                                                                                                            value="#{pageFlowScope.MachineActionBean.methodName3}"/>
+                                                                                        <af:clientListener method="methodDescription"
+                                                                                                           type="dblClick"/>
+                                                                                        <af:serverListener type="MethodDescriptionEvent"
+                                                                                                           method="#{pageFlowScope.MachineActionBean.showMethodDescription}"/>
+                                                                                    </af:outputText>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                            <af:gridRow marginTop="5px" height="auto"
+                                                                                        id="gr10">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc11">
+                                                                                    <af:outputText value="#{pageFlowScope.MachineActionBean.methodName4}"
+                                                                                                   id="ot8"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;">
+                                                                                        <af:clientAttribute name="methodName4"
+                                                                                                            value="#{pageFlowScope.MachineActionBean.methodName4}"/>
+                                                                                        <af:clientListener method="methodDescription"
+                                                                                                           type="dblClick"/>
+                                                                                        <af:serverListener type="MethodDescriptionEvent"
+                                                                                                           method="#{pageFlowScope.MachineActionBean.showMethodDescription}"/>
+                                                                                    </af:outputText>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                            <af:gridRow marginTop="5px" height="auto"
+                                                                                        id="gr11">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc12">
+                                                                                    <af:outputText value="#{pageFlowScope.MachineActionBean.methodName5}"
+                                                                                                   id="ot9"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;">
+                                                                                        <af:clientAttribute name="methodName5"
+                                                                                                            value="#{pageFlowScope.MachineActionBean.methodName5}"/>
+                                                                                        <af:clientListener method="methodDescription"
+                                                                                                           type="dblClick"/>
+                                                                                        <af:serverListener type="MethodDescriptionEvent"
+                                                                                                           method="#{pageFlowScope.MachineActionBean.showMethodDescription}"/>
+                                                                                    </af:outputText>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                            <af:gridRow marginTop="5px" height="auto"
+                                                                                        id="gr12">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc13">
+                                                                                    <af:outputText value="#{pageFlowScope.MachineActionBean.methodName6}"
+                                                                                                   id="ot10"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;">
+                                                                                        <af:clientAttribute name="methodName6"
+                                                                                                            value="#{pageFlowScope.MachineActionBean.methodName6}"/>
+                                                                                        <af:clientListener method="methodDescription"
+                                                                                                           type="dblClick"/>
+                                                                                        <af:serverListener type="MethodDescriptionEvent"
+                                                                                                           method="#{pageFlowScope.MachineActionBean.showMethodDescription}"/>
+                                                                                    </af:outputText>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                            <af:gridRow marginTop="5px" height="auto"
+                                                                                        id="gr13">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc14">
+                                                                                    <af:outputText value="#{pageFlowScope.MachineActionBean.methodName7}"
+                                                                                                   id="ot11"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;">
+                                                                                        <af:clientAttribute name="methodName7"
+                                                                                                            value="#{pageFlowScope.MachineActionBean.methodName7}"/>
+                                                                                        <af:clientListener method="methodDescription"
+                                                                                                           type="dblClick"/>
+                                                                                        <af:serverListener type="MethodDescriptionEvent"
+                                                                                                           method="#{pageFlowScope.MachineActionBean.showMethodDescription}"/>
+                                                                                    </af:outputText>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                            <af:gridRow marginTop="5px" height="auto"
+                                                                                        id="gr14">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc22">
+                                                                                    <af:outputText value="#{pageFlowScope.MachineActionBean.methodName8}"
+                                                                                                   id="ot12"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;">
+                                                                                        <af:clientAttribute name="methodName8"
+                                                                                                            value="#{pageFlowScope.MachineActionBean.methodName8}"/>
+                                                                                        <af:clientListener method="methodDescription"
+                                                                                                           type="dblClick"/>
+                                                                                        <af:serverListener type="MethodDescriptionEvent"
+                                                                                                           method="#{pageFlowScope.MachineActionBean.showMethodDescription}"/>
+                                                                                    </af:outputText>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                            <af:gridRow marginTop="5px" height="auto"
+                                                                                        id="gr15">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc23">
+                                                                                    <af:outputText value="#{pageFlowScope.MachineActionBean.methodName9}"
+                                                                                                   id="ot13"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;">
+                                                                                        <af:clientAttribute name="methodName9"
+                                                                                                            value="#{pageFlowScope.MachineActionBean.methodName9}"/>
+                                                                                        <af:clientListener method="methodDescription"
+                                                                                                           type="dblClick"/>
+                                                                                        <af:serverListener type="MethodDescriptionEvent"
+                                                                                                           method="#{pageFlowScope.MachineActionBean.showMethodDescription}"/>
+                                                                                    </af:outputText>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                            <af:gridRow marginTop="5px" height="auto"
+                                                                                        marginBottom="5px" id="gr16">
+                                                                                <af:gridCell marginStart="9px"
+                                                                                             width="100%"
+                                                                                             marginEnd="5px" id="gc24">
+                                                                                    <af:outputText value="#{pageFlowScope.MachineActionBean.methodName10}"
+                                                                                                   id="ot14"
+                                                                                                   noWrap="false"
+                                                                                                   inlineStyle="font-size:small;">
+                                                                                        <af:clientAttribute name="methodName10"
+                                                                                                            value="#{pageFlowScope.MachineActionBean.methodName10}"/>
+                                                                                        <af:clientListener method="methodDescription"
+                                                                                                           type="dblClick"/>
+                                                                                        <af:serverListener type="MethodDescriptionEvent"
+                                                                                                           method="#{pageFlowScope.MachineActionBean.showMethodDescription}"/>
+                                                                                    </af:outputText>
+                                                                                </af:gridCell>
+                                                                            </af:gridRow>
+                                                                        </af:panelGridLayout>
+                                                                    </af:panelGroupLayout>
+                                                                </af:dialog>
+                                                            </af:popup>
+                                                            <!--<af:spacer width="10" height="10" id="s19"/>-->
+                                                            <af:panelGridLayout id="pgl31">
+                                                                <af:gridRow marginTop="8px" height="auto" id="gr17">
+                                                                    <af:gridCell width="100%" id="gc25">
+                                                                        <af:commandButton text="#{viewcontrollerBundle.Temperatues}"
+                                                                                          id="cb11"
+                                                                                          inlineStyle="font-weight:bold; color:Black; height:45px; width:195px; text-align:left; border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                          iconPosition="leading"
+                                                                                          icon="#{resource['images:Temperature.png']}"
+                                                                                          actionListener="#{pageFlowScope.MachineActionBean.showTemperatureMethods}">
+                                                                            <af:componentDragSource/>
+                                                                        </af:commandButton>
+                                                                    </af:gridCell>
+                                                                </af:gridRow>
+                                                                <af:gridRow marginTop="5px" height="auto" id="gr18">
+                                                                    <af:gridCell width="100%" id="gc26">
+                                                                        <af:commandButton text="#{viewcontrollerBundle.Humidity}"
+                                                                                          id="cb1"
+                                                                                          inlineStyle="font-weight:bold; color:Black; height:45px; width:195px; text-align:left; border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                          iconPosition="leading"
+                                                                                          icon="#{resource['images:humidity.png']}"
+                                                                                          actionListener="#{pageFlowScope.MachineActionBean.showHumidityMethods}">
+                                                                            <af:componentDragSource/>
+                                                                        </af:commandButton>
+                                                                    </af:gridCell>
+                                                                </af:gridRow>
+                                                                <af:gridRow marginTop="5px" height="auto" id="gr19">
+                                                                    <af:gridCell width="100%" id="gc27">
+                                                                        <af:commandButton text="#{viewcontrollerBundle.Pressure}"
+                                                                                          id="cb7"
+                                                                                          inlineStyle="font-weight:bold; color:Black; height:45px; width:195px; text-align:left; border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                          iconPosition="leading"
+                                                                                          icon="#{resource['images:pressure1.png']}"
+                                                                                          actionListener="#{pageFlowScope.MachineActionBean.showPressureMethods}">
+                                                                            <af:componentDragSource/>
+                                                                        </af:commandButton>
+                                                                    </af:gridCell>
+                                                                </af:gridRow>
+                                                            </af:panelGridLayout>
+                                                        </af:panelGroupLayout>
+                                                    </af:panelBox>
+                                                </af:panelGroupLayout>
+                                            </af:panelGroupLayout>
+                                        </af:gridCell>
+                                    </af:gridRow>
+                                </af:panelGridLayout>
+                            </f:facet>
+                        </af:decorativeBox>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="25px" marginBottom="5px" id="gr3">
+                    <af:gridCell marginStart="5px" width="100%" id="gc5" columnSpan="3" halign="center" valign="middle">
+                        <af:panelGroupLayout id="pgl13" layout="vertical">
+                            <af:outputText value="Copyright &#169; 2015 Robert Bosch Engineering and Business Solutions Private Limited All Rights Reserved."
+                                           id="ot3"/>
+                        </af:panelGroupLayout>
+                    </af:gridCell>
+                </af:gridRow>
+            </af:panelGridLayout>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

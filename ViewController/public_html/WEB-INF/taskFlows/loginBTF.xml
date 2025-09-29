@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="loginBTF">
+    <default-activity>login</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <managed-bean id="__12">
+      <managed-bean-name>LoginBean</managed-bean-name>
+      <managed-bean-class>com.susanto.beans.LoginBean</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="login">
+      <page>/fragments/login.jsff</page>
+    </view>
+    <task-flow-call id="adminBTF">
+      <task-flow-reference>
+        <document>/WEB-INF/taskFlows/adminBTF.xml</document>
+        <id>adminBTF</id>
+      </task-flow-reference>
+    </task-flow-call>
+    <task-flow-call id="userBTF">
+      <task-flow-reference>
+        <document>/WEB-INF/taskFlows/userBTF.xml</document>
+        <id>userBTF</id>
+      </task-flow-reference>
+    </task-flow-call>
+    <method-call id="doLogin">
+      <method>#{pageFlowScope.LoginBean.doLoginDecision}</method>
+      <outcome>
+        <to-string/>
+      </outcome>
+    </method-call>
+    <task-flow-call id="configureMachActionsBTF">
+      <task-flow-reference>
+        <document>/WEB-INF/taskFlows/configureMachActionsBTF.xml</document>
+        <id>configureMachActionsBTF</id>
+      </task-flow-reference>
+    </task-flow-call>
+    <control-flow-rule id="__1">
+      <from-activity-id>login</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>adminBTF</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__3">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>userBTF</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__4">
+        <from-outcome>gotoDoLogin</from-outcome>
+        <to-activity-id>doLogin</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__5">
+      <from-activity-id>doLogin</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome>gotoAdminBTF</from-outcome>
+        <to-activity-id>adminBTF</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__7">
+        <from-outcome>gotoUserBTF</from-outcome>
+        <to-activity-id>userBTF</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__8">
+      <from-activity-id>adminBTF</from-activity-id>
+      <control-flow-case id="__9">
+        <from-outcome>gotoUser</from-outcome>
+        <to-activity-id>userBTF</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__13">
+        <from-outcome>gotoConMachAct</from-outcome>
+        <to-activity-id>configureMachActionsBTF</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__10">
+      <from-activity-id>userBTF</from-activity-id>
+      <control-flow-case id="__11">
+        <from-outcome>configureMachines</from-outcome>
+        <to-activity-id>adminBTF</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__16">
+        <from-outcome>gotoConMachAct</from-outcome>
+        <to-activity-id>configureMachActionsBTF</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__14">
+      <from-activity-id>configureMachActionsBTF</from-activity-id>
+      <control-flow-case id="__15">
+        <from-outcome>configureMachines</from-outcome>
+        <to-activity-id>adminBTF</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__17">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>login</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__18">
+        <from-outcome>gotoUserBTF</from-outcome>
+        <to-activity-id>userBTF</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

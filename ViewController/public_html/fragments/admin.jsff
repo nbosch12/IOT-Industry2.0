@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich" version="2.1" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <c:set var="viewcontrollerBundle" value="#{adfBundle['view.viewcontrollerBundle']}"/>
+    <af:panelStretchLayout id="psl1" dimensionsFrom="parent">
+        <f:facet name="center">
+            <af:panelGridLayout id="pgl1" inlineStyle="background-color:InactiveBorder;" dimensionsFrom="parent">
+                <af:gridRow marginTop="5px" height="60px" id="gr1">
+                    <af:gridCell marginStart="5px" width="210px" id="gc1">
+                        <af:image source="#{resource['images:bosch_logo.png']}" shortDesc="boschLogo"
+                                  inlineStyle="height:48px;width:160px;" id="i1"/>
+                    </af:gridCell>
+                    <af:gridCell marginStart="5px" width="100%" id="gc2" halign="center" valign="middle">
+                        <!--<af:image source="#{resource['images:admin.png']}" shortDesc="userIcon" id="i2"
+                                  inlineStyle="width:60px" rendered="#{sessionScope.uname=='Susanto'}"/>-->
+                        <!--<af:image shortDesc="user" id="i6" inlineStyle="width:60px"
+                                  rendered="#{sessionScope.uname=='Nilesh'}"
+                                  source="#{resource['images:userIcn.png']}"/>-->
+                    </af:gridCell>
+                    <af:gridCell marginStart="5px" width="380px" marginEnd="5px" id="gc4" halign="end" valign="middle">
+                        <af:panelGroupLayout id="pgl2" layout="horizontal">
+                            <af:menuBar id="mb1">
+                                <af:commandMenuItem text="#{viewcontrollerBundle.GotoUserPage}" id="cmi3"
+                                                    inlineStyle="font-size:small;" action="gotoUser"/>
+                                <af:image source="#{resource['images:verticalLine.png']}" shortDesc="verticalLine"
+                                          id="i7" inlineStyle="height:12px;"/>
+                                <af:commandMenuItem text="#{viewcontrollerBundle.ConfigureMachineActions}" id="cmi2"
+                                                    inlineStyle="font-size:small;" action="gotoConMachAct"/>
+                                <af:image source="#{resource['images:verticalLine.png']}" shortDesc="verticalLine"
+                                          id="i5" inlineStyle="height:12px;"/>
+                            </af:menuBar>
+                            <af:outputText value="#{viewcontrollerBundle.Welcome}" id="ot1"
+                                           inlineStyle="font-size:small;"/>
+                            <af:image source="#{resource['images:userLogin.png']}" shortDesc="userLogin" id="i3"/>
+                            <af:activeOutputText id="aot1" inlineStyle="font-size:small;" value="#{sessionScope.uname}"
+                                                 binding="#{pageFlowScope.AdminBean.userName}"/>
+                            <af:spacer width="13" height="10" id="s4"/>
+                            <af:link text="#{viewcontrollerBundle.English}"
+                                     rendered="#{facesContext.viewRoot.locale.language eq 'de'}" id="l2"
+                                     inlineStyle="font-size:small;"
+                                     actionListener="#{pageFlowScope.AdminBean.englishLanguage}"/>
+                            <af:link text="#{viewcontrollerBundle.Deutsch}"
+                                     rendered="#{facesContext.viewRoot.locale.language eq 'en'}" id="l1"
+                                     inlineStyle="font-size:small;"
+                                     actionListener="#{pageFlowScope.AdminBean.deutschLanguage}"/>
+                            <af:spacer width="13" height="10" id="s5"/>
+                            <af:link text="#{viewcontrollerBundle.Help}" id="l3" inlineStyle="font-size:small;"/>
+                            <af:spacer width="13" height="10" id="s6"/>
+                            <af:link text="#{viewcontrollerBundle.Logout}" id="l4" inlineStyle="font-size:small;"
+                                     action="back"/>
+                            <af:spacer width="13" height="10" id="s7"/>
+                        </af:panelGroupLayout>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="100%" marginBottom="5px" id="gr2">
+                    <af:gridCell marginStart="5px" width="100%" id="gc6" columnSpan="3" halign="stretch"
+                                 valign="stretch">
+                        <af:decorativeBox id="db1" theme="contentBody">
+                            <f:facet name="center">
+                                <af:panelGridLayout id="pgl3">
+                                    <af:gridRow marginTop="5px" height="100%" marginBottom="5px" id="gr4">
+                                        <af:gridCell marginStart="5px" id="gc5" width="100%" halign="stretch"
+                                                     valign="stretch">
+                                            <af:decorativeBox theme="default" id="db3">
+                                                <f:facet name="center">
+                                                    <af:panelGroupLayout id="pgl6" layout="scroll">
+                                                        <af:panelBorderLayout id="pbl1">
+                                                            <f:facet name="right">
+                                                                <af:panelGroupLayout id="pgl7" layout="vertical"
+                                                                                     halign="center">
+                                                                    <!--<af:spacer width="10" height="40" id="s10"/>-->
+                                                                    <af:panelGroupLayout id="pgl12"
+                                                                                         inlineStyle="width:1000px;"
+                                                                                         valign="middle"
+                                                                                         layout="horizontal"
+                                                                                         halign="center">
+                                                                        <af:inputText label="#{viewcontrollerBundle.ENTER_MATERIAL_NAME}"
+                                                                                      id="it2"
+                                                                                      binding="#{pageFlowScope.AdminBean.materialId}"
+                                                                                      showRequired="true"/>
+                                                                        <af:panelGroupLayout id="pgl11"
+                                                                                             inlineStyle="width:600px;"
+                                                                                             valign="middle"
+                                                                                             halign="right"
+                                                                                             layout="horizontal">
+                                                                            <af:button text="#{viewcontrollerBundle.SAVE_WORKFLOW}"
+                                                                                       id="b1"
+                                                                                       actionListener="#{pageFlowScope.AdminBean.saveWorkflow}"></af:button>
+                                                                            <af:popup childCreation="deferred"
+                                                                                      autoCancel="disabled" id="p2"
+                                                                                      binding="#{pageFlowScope.AdminBean.savePopupBinding}">
+                                                                                <af:dialog id="d1" type="none"
+                                                                                           title="#{pageFlowScope.AdminBean.popUpHrd}"
+                                                                                           titleIconSource="#{pageFlowScope.AdminBean.popUpHrd ne 'Error' ? resource['images:yellowWarning.png']:  resource['images:redWarning.png']}"
+                                                                                           inlineStyle="width:230px;">
+                                                                                    <af:outputText id="ot2"
+                                                                                                   value="#{pageFlowScope.AdminBean.popUpMsg}"/>
+                                                                                </af:dialog>
+                                                                            </af:popup>
+                                                                        </af:panelGroupLayout>
+                                                                    </af:panelGroupLayout>
+                                                                    <af:spacer width="10" height="144" id="s3"/>
+                                                                    <af:panelDashboard id="pd1" columns="9"
+                                                                                       rowHeight="230px"
+                                                                                       inlineStyle="background-color:InfoBackground; drop-initial-before-align:middle;"
+                                                                                       binding="#{pageFlowScope.AdminBean.dandPNLDB}"
+                                                                                       dropListener="#{pageFlowScope.AdminBean.handleDnd}">
+                                                                        <af:dataFlavor flavorClass="java.lang.Object"/>
+                                                                    </af:panelDashboard>
+                                                                    <!--<af:panelGroupLayout id="pgl5" halign="center"
+                                                                                         valign="middle"
+                                                                                         layout="horizontal"/>-->
+                                                                </af:panelGroupLayout>
+                                                            </f:facet>
+                                                        </af:panelBorderLayout>
+                                                    </af:panelGroupLayout>
+                                                </f:facet>
+                                            </af:decorativeBox>
+                                        </af:gridCell>
+                                        <af:gridCell marginStart="5px" marginEnd="5px" id="gc21" width="220px"
+                                                     halign="stretch" valign="stretch"
+                                                     inlineStyle="background-color:ButtonFace;">
+                                            <af:panelGroupLayout id="pgl16"
+                                                                 inlineStyle="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px;">
+                                                <af:panelBox text="#{viewcontrollerBundle.VARIOUS_MACHINES}" id="pb1"
+                                                             showDisclosure="false" inlineStyle="text-align:center;">
+                                                    <af:panelGroupLayout id="pgl17" layout="vertical" halign="center"/>
+                                                    <af:panelGridLayout id="pgl4">
+                                                        <af:gridRow marginTop="5px" height="auto" id="gr5">
+                                                            <af:gridCell width="100%" id="gc7">
+                                                                <!--<af:image source="#{resource['images:drillingIcn.png']}"
+                                                                          shortDesc="d" id="i2"/>-->
+                                                                <af:commandButton text="#{viewcontrollerBundle.DrillingMachine}"
+                                                                                  id="cb11"
+                                                                                  inlineStyle="font-weight:bold; color:Black; height:45px; width:195px; text-align:left; border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                  iconPosition="leading"
+                                                                                  icon="#{resource['images:drillingIcon.png']}">
+                                                                    <af:componentDragSource/>
+                                                                    <af:dropTarget dropListener="#{pageFlowScope.AdminBean.handleContainerDrag}"
+                                                                                   actions="MOVE">
+                                                                        <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                    </af:dropTarget>
+                                                                </af:commandButton>
+                                                            </af:gridCell>
+                                                        </af:gridRow>
+                                                        <af:gridRow marginTop="5px" height="auto" id="gr6">
+                                                            <af:gridCell width="100%" id="gc8">
+                                                                <af:commandButton text="#{viewcontrollerBundle.TurningMachine}"
+                                                                                  id="cb12"
+                                                                                  inlineStyle="font-weight:bold; color:Black; height:45px; width:195px; text-align:left; border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                  iconPosition="leading"
+                                                                                  icon="#{resource['images:turnIcn.png']}">
+                                                                    <af:componentDragSource/>
+                                                                    <af:dropTarget dropListener="#{pageFlowScope.AdminBean.handleContainerDrag}"
+                                                                                   actions="MOVE">
+                                                                        <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                    </af:dropTarget>
+                                                                </af:commandButton>
+                                                            </af:gridCell>
+                                                        </af:gridRow>
+                                                        <af:gridRow marginTop="5px" height="auto" id="gr7">
+                                                            <af:gridCell width="100%" id="gc9">
+                                                                <af:commandButton text="#{viewcontrollerBundle.PaintingMachine}"
+                                                                                  id="cb13"
+                                                                                  inlineStyle="font-weight:bold; color:Black; height:45px; width:195px; text-align:left; border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                  iconPosition="leading"
+                                                                                  icon="#{resource['images:Painting.png']}">
+                                                                    <af:componentDragSource/>
+                                                                    <af:dropTarget dropListener="#{pageFlowScope.AdminBean.handleContainerDrag}"
+                                                                                   actions="MOVE">
+                                                                        <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                    </af:dropTarget>
+                                                                </af:commandButton>
+                                                            </af:gridCell>
+                                                        </af:gridRow>
+                                                        <af:gridRow marginTop="5px" height="auto" id="gr8">
+                                                            <af:gridCell width="100%" id="gc10">
+                                                                <af:commandButton text="#{viewcontrollerBundle.LabellingMachine}"
+                                                                                  id="cb14"
+                                                                                  inlineStyle="font-weight:bold; color:Black; height:45px; width:195px; text-align:left; border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                  iconPosition="leading"
+                                                                                  icon="#{resource['images:labelling.png']}">
+                                                                    <af:componentDragSource/>
+                                                                    <af:dropTarget dropListener="#{pageFlowScope.AdminBean.handleContainerDrag}"
+                                                                                   actions="MOVE">
+                                                                        <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                    </af:dropTarget>
+                                                                </af:commandButton>
+                                                            </af:gridCell>
+                                                        </af:gridRow>
+                                                        <af:gridRow marginTop="5px" height="auto" id="gr9">
+                                                            <af:gridCell width="100%" id="gc11">
+                                                                <af:commandButton text="#{viewcontrollerBundle.PackagingMachine}"
+                                                                                  id="cb15"
+                                                                                  inlineStyle="font-weight:bold; color:Black; height:45px; width:195px; text-align:left; border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                  iconPosition="leading"
+                                                                                  icon="#{resource['images:package.png']}">
+                                                                    <af:componentDragSource/>
+                                                                    <af:dropTarget dropListener="#{pageFlowScope.AdminBean.handleContainerDrag}"
+                                                                                   actions="MOVE">
+                                                                        <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                    </af:dropTarget>
+                                                                </af:commandButton>
+                                                            </af:gridCell>
+                                                        </af:gridRow>
+                                                        <af:gridRow marginTop="5px" height="auto" id="gr10">
+                                                            <af:gridCell width="100%" id="gc12">
+                                                                <af:commandButton text="#{viewcontrollerBundle.Navigation}"
+                                                                                  id="cb16"
+                                                                                  inlineStyle="font-weight:bold; color:Black; height:45px; width:195px; text-align:left; border-left-style:solid; border-left-width:2px; border-left-color:Olive; border-right-color:Olive; border-right-style:solid; border-right-width:2px; border-top-color:Olive; border-top-style:solid; border-top-width:2px; border-bottom-color:Olive; border-bottom-style:solid; border-bottom-width:2px;"
+                                                                                  iconPosition="leading"
+                                                                                  icon="#{resource['images:forwardArrow.png']}">
+                                                                    <af:componentDragSource/>
+                                                                    <af:dropTarget dropListener="#{pageFlowScope.AdminBean.handleContainerDrag}"
+                                                                                   actions="MOVE">
+                                                                        <af:dataFlavor flavorClass="javax.faces.component.UIComponent"/>
+                                                                    </af:dropTarget>
+                                                                </af:commandButton>
+                                                            </af:gridCell>
+                                                        </af:gridRow>
+                                                    </af:panelGridLayout>
+                                                </af:panelBox>
+                                                <af:spacer width="10" height="100" id="s12"/>
+                                                <af:panelGroupLayout id="pgl18" halign="center" layout="vertical"
+                                                                     binding="#{pageFlowScope.AdminBean.pglPollListenerContainerBinding}">
+                                                    <af:poll id="p1" interval="2000"
+                                                             pollListener="#{pageFlowScope.AdminBean.pollListenerRecycleBin}"
+                                                             rendered="false"
+                                                             binding="#{pageFlowScope.AdminBean.pollListenerRecycleBinBinding}"/>
+                                                    <af:image source="#{resource['images:recycle_filled.png']}"
+                                                              shortDesc="s" id="i2" visible="false"/>
+                                                    <af:image shortDesc="emptyBin" id="i12"
+                                                              inlineStyle="width:55px; height:59px;"
+                                                              source="#{resource['images:recycle_empty.png']}"
+                                                              binding="#{pageFlowScope.AdminBean.recycleBinding}">
+                                                        <af:dropTarget dropListener="#{pageFlowScope.AdminBean.deleteHandler}"
+                                                                       actions="MOVE">
+                                                            <af:dataFlavor flavorClass="java.lang.Object"/>
+                                                        </af:dropTarget>
+                                                    </af:image>
+                                                </af:panelGroupLayout>
+                                            </af:panelGroupLayout>
+                                        </af:gridCell>
+                                    </af:gridRow>
+                                </af:panelGridLayout>
+                            </f:facet>
+                        </af:decorativeBox>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="25px" marginBottom="5px" id="gr3">
+                    <af:gridCell marginStart="5px" width="100%" id="gc3" columnSpan="3" halign="center" valign="middle">
+                        <af:panelGroupLayout id="pgl13" layout="vertical">
+                            <af:outputText value="Copyright &#169; 2015 Robert Bosch Engineering and Business Solutions Private Limited All Rights Reserved."
+                                           id="ot3"/>
+                        </af:panelGroupLayout>
+                    </af:gridCell>
+                </af:gridRow>
+            </af:panelGridLayout>
+        </f:facet>
+        <f:facet name="start"/>
+        <f:facet name="end"/>
+        <f:facet name="top"/>
+    </af:panelStretchLayout>
+</jsp:root>

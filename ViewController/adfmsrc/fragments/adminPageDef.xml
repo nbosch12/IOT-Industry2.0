@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.1.3.10.8" id="adminPageDef"
+                Package="fragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="DnsVO1Iterator" Binds="DnsVO1" DataControl="AppModuleDataControl" RangeSize="25"/>
+    <iterator id="MachineMethodsVO1Iterator" Binds="MachineMethodsVO1" DataControl="AppModuleDataControl"
+              RangeSize="25"/>
+    <iterator id="Materialid1Iterator" Binds="Materialid1" DataControl="AppModuleDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="DnsVO1Iterator" id="UrlId">
+      <AttrNames>
+        <Item Value="UrlId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DnsVO1Iterator" id="Url">
+      <AttrNames>
+        <Item Value="Url"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="materialid1Iterator" StaticList="false" Uses="LOV_MaterialId" id="MaterialId"/>
+    <attributeValues IterBinding="materialid1Iterator" id="MaterialId1">
+      <AttrNames>
+        <Item Value="MaterialId"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AppModule"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  ComponentClass="model.applicationModule.AppModuleImpl"
+  ClearCacheOnRollback="true">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <ViewUsage
+    Name="DnsVO1"
+    ViewObjectName="model.viewObjects.DnsVO"/>
+  <ViewUsage
+    Name="MachineMethodsVO1"
+    ViewObjectName="model.viewObjects.MachineMethodsVO"/>
+  <ViewUsage
+    Name="Materialid1"
+    ViewObjectName="model.viewObjects.Materialid"/>
+</AppModule>
